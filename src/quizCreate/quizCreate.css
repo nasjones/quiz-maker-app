@@ -1,0 +1,59 @@
+#quizName {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#quizForm {
+    border: 2px dotted darkblue;
+    padding: 10px;
+    margin: 10%;
+    text-align: left;
+}
+
+#addQuest, #quizSub, #remQuest {
+    border: 1px solid salmon;
+    box-shadow: 3px 4px blue;
+    flex-grow: 1;
+    margin: 0 2%;
+}
+
+#description {
+    border: 1px solid blue;
+    height: 100px;
+    font-size: 15px;
+}
+
+#desc-box {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+}
+
+#maxMsg {
+    font-size: smaller;
+}
+
+.questionFormButtons {
+    height: 30px;
+    display: flex;
+}
+
+.shaker {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

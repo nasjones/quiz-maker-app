@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Quiz from './quiz'
-import './quizDisplay.css'
+import Quiz from './quiz';
+import './quizDisplay.css';
+import config from '../config';
+import { Link } from 'react-router-dom'
 
 export default class QuizDisplay extends Component {
     constructor(props) {
@@ -14,16 +16,17 @@ export default class QuizDisplay extends Component {
 
     UNSAFE_componentWillMount() {
         //   window.globe = { quizStore, answerStore, questionStore }
-        let endpoint = 'http://localhost:8000/api/'
+
         const options = {
             method: 'GET',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${config.REACT_APP_API_KEY}`
             }
         }
         Promise.all([
-            fetch(endpoint + 'quiz/key/' + this.props.match.params.quizId, options),
-            fetch(endpoint + 'questions/quiz/' + this.props.match.params.quizId, options)
+            fetch(config.ENDPOINT + '/quiz/key/' + this.props.match.params.quizId, options),
+            fetch(config.ENDPOINT + '/questions/quiz/' + this.props.match.params.quizId, options)
         ]).then(([quizRes, questRes]) => {
             if (!quizRes.ok)
                 return quizRes.json().then(e => Promise.reject(e))
@@ -31,7 +34,6 @@ export default class QuizDisplay extends Component {
                 return questRes.json().then(e => Promise.reject(e))
             return Promise.all([quizRes.json(), questRes.json()])
         }).then(([quiz, questOut]) => {
-            console.log(questOut)
             for (let i = 0; i < questOut.length; i++)
                 questOut[i].answers = this.shuffle(questOut[i].answers)
 
@@ -81,7 +83,13 @@ export default class QuizDisplay extends Component {
             return (
 
                 <div className="quizPage">
-                    <Quiz title={this.state.quiz.title} questions={this.state.questions} />
+                    <div id="existHead">
+                        <h1 className="cornerTitle" id="existCorner">QUIZ BOWL</h1>
+                        <div className="buttonWrap">
+                            <Link to={'/'} className="homeNavExist yellowButton">GO HOME</Link>
+                        </div>
+                    </div>
+                    <Quiz title={this.state.quiz.title} questions={this.state.questions} description={this.state.quiz.description} />
                 </div>
             )
         else

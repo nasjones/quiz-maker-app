@@ -11,13 +11,12 @@ export default class Quiz extends Component {
             correct: null,
             answer: null,
             break: false,
-            quizEnd: false
+            finished: false
         }
     }
 
     questSub = (e) => {
         e.preventDefault()
-        console.log(this.props)
 
         if (this.state.selection === this.state.answer) {
             this.setState({
@@ -41,7 +40,6 @@ export default class Quiz extends Component {
     }
 
     radChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             selection: e.target.value
         })
@@ -55,16 +53,26 @@ export default class Quiz extends Component {
     }
 
     nextQuest = () => {
+
         this.setState({
             current: this.state.current + 1,
             answer: this.props.questions[this.state.current].correct,
             break: false,
             correct: null,
-
         })
     }
 
-
+    quizReset = () => {
+        this.setState({
+            current: 0,
+            count: 0,
+            selection: null,
+            correct: null,
+            answer: null,
+            break: false,
+            finished: false
+        })
+    }
 
     render() {
         if (this.state.finished === true)
@@ -74,7 +82,7 @@ export default class Quiz extends Component {
                     <h3>Your score was:</h3>
                     <h3><b>{this.state.count}/{this.props.questions.length}</b></h3>
                     <br />
-                    <button type="button" className="quizButton" onClick={this.nextQuest}>next</button>
+                    <button type="button" className="quizButton" onClick={this.quizReset}>reset</button>
                 </div>)
 
         if (this.state.break === true) {
@@ -102,6 +110,7 @@ export default class Quiz extends Component {
             return (
                 <div className="quizBox">
                     <h2 id="title">{this.props.title}</h2>
+                    <span>{this.props.description}</span>
                     <br />
                     <button type="button" className="quizButton" onClick={this.begin}>Begin</button>
                 </div>

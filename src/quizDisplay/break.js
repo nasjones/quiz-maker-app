@@ -2,7 +2,6 @@ import React from 'react';
 import './question.css';
 
 export default function question(props) {
-    console.log(props)
     return (
         <div>
             <h3>{props.question}</h3>

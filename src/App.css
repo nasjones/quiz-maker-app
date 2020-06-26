@@ -2,16 +2,10 @@
   text-align: center;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   transform-origin: center center;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 6s ease;
-  }
-}
+} */
 
 .App-header {
   background-color: #282c34;
@@ -28,20 +22,6 @@
   color: #61dafb;
 }
 
-#upPath, #downPath {
-  fill: none;
-  stroke: red;
-}
-
-#downPath .letterWrap {
-  transform-origin: bottom center;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h2, h3, h4 {
+  font-family: 'Oswald';
 }

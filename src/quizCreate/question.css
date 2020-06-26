@@ -1,20 +1,23 @@
 .question {
-    border: 2px solid black;
-    border-radius: 15px;
+    border: 1px solid #06D6A0;
+    border-radius: 7px;
     padding: 4px;
+    width: 75%;
+    height: 20px;
 }
 
 .optionInput {
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 4px;
     margin-top: 5px;
     margin-bottom: 8px;
+    width: 75%;
 }
 
 .choiceWrap {
     padding: 10px;
-    margin: 10px;
+    margin: 10px 10px 10px 30px;
 }
 
 .radOpt {
@@ -23,6 +26,52 @@
 
 .option {
     vertical-align: middle;
+    font-weight: bold;
+}
+
+.option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.radButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: rgb(160, 40, 40);
+    border-radius: 50%;
+}
+
+.radOpt {
+    /* display: none; */
+    opacity: 0;
+}
+
+.radOpt+label::after {
+    border: 1px solid black;
+    border-radius: 50%;
+    content: "\00a0";
+    display: inline-block;
+    font: 16px/1em sans-serif;
+    height: 16px;
+    margin: 0 5px;
+    padding: 0;
+    vertical-align: top;
+    width: 16px;
+    background: rgba(255, 255, 255, 0);
+}
+
+.radOpt:checked+label::after {
+    background-color: #06D6A0;
+}
+
+.radOpt:focus-within+label::after {
+    border: 3px solid rgb(36, 134, 245);
 }
 
 .error {

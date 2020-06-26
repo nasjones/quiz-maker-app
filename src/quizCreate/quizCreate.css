@@ -4,21 +4,39 @@
 }
 
 #quizForm {
-    border: 2px dotted darkblue;
-    padding: 10px;
-    margin: 10%;
+    padding: 20px;
     text-align: left;
+    flex-grow: 1;
 }
 
 #addQuest, #quizSub, #remQuest {
-    border: 1px solid salmon;
-    box-shadow: 3px 4px blue;
     flex-grow: 1;
     margin: 0 2%;
+    height: 100%;
+    text-align: left;
+}
+
+#categories {
+    border: 2px solid #06D6A0;
+    border-radius: 7px;
+    max-width: fit-content;
+}
+
+#quizSub {
+    /* font-size: 1.5em; */
+    font-size: 1.2em;
+}
+
+#addQuest, #remQuest {
+    /* font-size: 1.2em; */
+    font-size: 1em;
 }
 
 #description {
-    border: 1px solid blue;
+    border: 1px solid #06D6A0;
+    border-radius: 7px;
+    padding: 4px;
+    width: 75%;
     height: 100px;
     font-size: 15px;
 }
@@ -34,13 +52,113 @@
     font-size: smaller;
 }
 
+.yellowButtonTwo {
+    box-shadow: 6px 6px#F35C5C;
+    background-color: #FFD166;
+}
+
+.redButton {
+    background-color: #F35C5C;
+    box-shadow: 6px 6px #FFD166;
+}
+
+.yellowButtonTwo:hover, .redButton:hover, .yellowButtonTwo:focus-within, .redButton:focus-within, .greenButton:hover, .greenButton:focus-within {
+    box-shadow: 6px 6px #06D6A0;
+    cursor: pointer;
+}
+
 .questionFormButtons {
-    height: 30px;
+    height: 60px;
     display: flex;
+}
+
+.pageWrap {
+    display: inline-flex;
+    width: 98%;
+    flex-direction: column;
+}
+
+.buttonWrap {
+    height: fit-content;
 }
 
 .shaker {
     animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+.homeNavCreate {
+    margin: 20px;
+    padding: 10px 80px 10px 10px;
+    border: 1px solid black;
+    color: black;
+    font-size: 1em;
+    text-decoration: none;
+    font-family: 'Avenir';
+    font-weight: 500;
+}
+
+.formWrap {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+#createCorner {
+    margin-block-end: .4em;
+}
+
+#createHeader {
+    display: flex;
+    flex-direction: column;
+}
+
+.createWrap {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+input[type="checkbox"]+label:before {
+    border: 1px solid #333;
+    content: "\00a0";
+    display: inline-block;
+    font: 16px/1em sans-serif;
+    height: 16px;
+    margin: 0 .25em 0 0;
+    padding: 0;
+    vertical-align: top;
+    width: 16px;
+    box-shadow: 3px 3px #06D6A0;
+    background: #FFD166;
+}
+
+input[type="checkbox"]:checked+label:before {
+    color: #333;
+    content: "\2714";
+    text-align: center;
+}
+
+#privateLabel {
+    font-weight: bold;
+}
+
+@media only screen and (min-width:550px) {
+    .createWrap {
+        flex-direction: row;
+        flex-basis: content;
+    }
+}
+
+@media only screen and (min-width:1100px) {
+    #quizForm {
+        padding: 20px 15%;
+    }
 }
 
 @keyframes shake {

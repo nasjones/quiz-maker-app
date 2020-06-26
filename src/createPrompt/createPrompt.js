@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import './createPrompt.css'
 
 
 export default class Homepage extends Component {
     render() {
         return (
             <div>
-                <h2>Quiz creation rules.</h2>
-                <ul>
-                    <li>All quizzes require a title.</li>
-                    <li>All questions require all 4 options.</li>
-                    <li>The description for the quiz is optional</li>
-                    <li>If you do not choose personal styling for your quiz it will be the default</li>
-                    <li>Private quizzes will only be accessible by the link given to you.</li>
-                </ul>
-                <br />
-                <Link to={'/quizCreate'}>Continue.</Link>
-            </div>
+                <h1 className="cornerTitle">QUIZ BOWL</h1>
+                <div className="promptWrap">
+                    <h2>Before we begin, here's what you need to know:</h2>
+                    <ul>
+                        <li><span className="listText">Private quizzes are only available at the link provided to you after you make your quiz. Don’t lose this link!</span></li>
+                        <li><span className="listText">Just in case you do, email us at: <a href="mailto:nassircjones@gmail.com" className="email">nassircjones@gmail.com</a> as soon as possible and we’ll try to get it right back.</span></li>
+
+                    </ul>
+                    <br />
+                    <div className="buttonWrap">
+                        <Link to={'/'} className="promptNav yellowButton">GO BACK</Link>
+                        <Link to={'/quizCreate'} className="promptNav greenButton">READY TO CREATE</Link>
+                    </div>
+                </div>
+                <div className="foot">made by <a href="http://nassirjones.com" target="_blank" rel="noopener noreferrer" className="webLink">Nassir Jones</a></div>
+            </div >
         )
     }
 }

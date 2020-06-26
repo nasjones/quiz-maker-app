@@ -88,6 +88,21 @@ export default class question extends Component {
 
     }
 
+    retainAns(i, j) {
+        if (this.props.values)
+            if (this.props.values[i])
+                if (this.props.values[i].hasOwnProperty('answers'))
+                    if (this.props.values[i].answers[j])
+                        return this.props.values[i].answers[j]
+    }
+
+    retainQuests(i) {
+        if (this.props.values)
+            if (this.props.values[i])
+                if (this.props.values[i].hasOwnProperty('question'))
+                    return this.props.values[i].question
+    }
+
     question() {
         let out = []
         for (let i = 0; i < this.props.count; i++) {
@@ -96,25 +111,27 @@ export default class question extends Component {
                 options.push(
                     <div key={"option" + (j + 1)} className="choiceWrap">
                         <label htmlFor={"Q" + (i + 1) + "option" + (j + 1)} className="option" >
-                            option {(j + 1)}:
-                            </label>
-                        <input type="text" className="optionInput" id={"Q" + (i + 1) + "option" + (j + 1)} onChange={e => this.optChangeHandle(i, j, e.target.value)} />
+                            option {(j + 1)}
+                        </label>
+                        <br />
+                        <input type="text" className="optionInput" id={"Q" + (i + 1) + "option" + (j + 1)} defaultValue={this.retainAns(i, j)} onChange={e => this.optChangeHandle(i, j, e.target.value)} />
                         {<OptValidation message={"Please enter an option"} opt={document.getElementById(`Q${i + 1}option${j + 1}`)} optTouch={(this.optTouch(i, j, document.getElementById(`Q${i + 1}option${j + 1}`)))} bool={this.props.bool} />}
                         <br />
+
+
+                        <input type="radio" id={"Q" + (i + 1) + "radOpt" + (j + 1)} name={"Quest" + (i + 1) + "rad"} className="radOpt" onChange={e => this.radChange(i, j, document.getElementById(`Q${i + 1}option${j + 1}`).value)} />
                         <label htmlFor={"Q" + (i + 1) + "radOpt" + (j + 1)} className="option">
                             Correct answer:
                         </label>
-
-                        <input type="radio" id={"Q" + (i + 1) + "radOpt" + (j + 1)} name={"Quest" + (i + 1) + "rad"} className="radOpt" onChange={e => this.radChange(i, j, document.getElementById(`Q${i + 1}option${j + 1}`).value)} />
                     </div>
                 )
             }
             out.push(
                 <div key={i}>
-                    <h4>Question {i + 1}</h4>
-                    <input type="text" className="question" id={"question" + (i + 1)} onChange={e => this.questChangeHandle(i, e.target.value)} />
+                    <h3>Question {i + 1}</h3>
+                    <input type="text" className="question" defaultValue={this.retainQuests(i)} id={"question" + (i + 1)} onChange={e => this.questChangeHandle(i, e.target.value)} />
                     {<QuestValidation message={"Please enter a question"} quest={document.getElementById(`question${i + 1}`)} questTouch={this.questTouch(i, document.getElementById(`question${i + 1}`))} bool={this.props.bool} />}
-                    <h5>Choices</h5>
+                    <h5>Answer choices</h5>
                     {<CorrectValidation message={"Please choose which option is correct"} bool={this.props.bool} sel={this.state.selected[i]} />}
                     {options}
                     <hr />

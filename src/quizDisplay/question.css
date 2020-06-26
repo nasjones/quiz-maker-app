@@ -2,3 +2,34 @@
     text-align: left;
     padding: 15px;
 }
+
+.quizOpt {
+    /* display: none; */
+    opacity: 0;
+}
+
+.quizOpt+label::before {
+    border: 1px solid black;
+    border-radius: 50%;
+    content: "\00a0";
+    display: inline-block;
+    font: 16px/1em sans-serif;
+    height: 16px;
+    margin: 0 5px;
+    padding: 0;
+    vertical-align: top;
+    width: 16px;
+    background: rgba(255, 255, 255, 0);
+}
+
+.quizOpt:checked+label::before {
+    background-color: #06D6A0;
+}
+
+.quizOpt:focus-within+label::before {
+    border: 2px solid #FFD166;
+}
+
+.questLabel {
+    margin: 10px;
+}

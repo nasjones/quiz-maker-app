@@ -1,6 +1,7 @@
 import React from 'react'
 const QuizContext = React.createContext({
     quiz: [],
-    // pageUpdate: () => { },
+    pageUpdate: () => { },
+    loaded: null
 })
 export default QuizContext

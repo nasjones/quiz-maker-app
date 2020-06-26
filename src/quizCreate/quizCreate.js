@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './quizCreate.css';
 import Question from './question';
 import ValidationError from './ValidationError';
-import QuizLink from './quizLink'
-// import uuid from 'react-uuid';
-
-
+import QuizLink from './quizLink';
+import config from '../config';
 
 export default class quizCreate extends Component {
     constructor(props) {
@@ -19,6 +18,8 @@ export default class quizCreate extends Component {
             description: "",
             descLength: 0,
             private: false,
+            catTouch: false,
+            category: "",
             submitted: false,
             link: null,
             error: null
@@ -49,8 +50,21 @@ export default class quizCreate extends Component {
         })
     }
 
+    categoryChange = (category) => {
+        this.setState({
+            catTouch: true,
+            category
+        })
+    }
+
     titleCheck() {
         if ((this.state.titleTouch || this.state.subAttempt) && this.state.title.length === 0)
+            return true;
+        return false;
+    }
+
+    categoryCheck() {
+        if ((this.state.catTouch || this.state.subAttempt) && this.state.category === "")
             return true;
         return false;
     }
@@ -175,14 +189,14 @@ export default class quizCreate extends Component {
         this.setState({
             subAttempt: true
         })
-        // this.render()
     }
 
     poster(quizInput, questInput) {
-        fetch('http://localhost:8000/api/quiz', {
+        fetch(config.ENDPOINT + '/quiz', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${config.REACT_APP_API_KEY}`
             },
             body: JSON.stringify(quizInput)
         }).then(res => {
@@ -190,7 +204,6 @@ export default class quizCreate extends Component {
                 return res.json().then(e => Promise.reject(e))
             return res.json()
         }).then(quiz => {
-            console.log(quiz)
             for (let i = 0; i < questInput.length; i++) {
                 let questObj = {
                     quiz_id: quiz.unique_key,
@@ -198,10 +211,11 @@ export default class quizCreate extends Component {
                     answers: questInput[i].answers,
                     correct: questInput[i].correct
                 }
-                fetch('http://localhost:8000/api/questions', {
+                fetch(config.ENDPOINT + '/questions', {
                     method: 'POST',
                     headers: {
-                        'content-type': 'application/json'
+                        'content-type': 'application/json',
+                        'Authorization': `Bearer ${config.REACT_APP_API_KEY}`
                     },
                     body: JSON.stringify(questObj)
                 }).then(res => {
@@ -209,7 +223,6 @@ export default class quizCreate extends Component {
                         return res.json().then(e => Promise.reject(e))
                     return res.json()
                 }).then(questions => {
-                    console.log(questions)
                     if (i === questInput.length - 1)
                         this.setState({
                             submitted: true,
@@ -220,6 +233,7 @@ export default class quizCreate extends Component {
                     this.setState({ error: true })
                     i = 100
                 })
+                // value.pageUpdate()
             }
         }).catch(errorOne => {
             console.error({ errorOne })
@@ -256,14 +270,8 @@ export default class quizCreate extends Component {
     subHandle = (e) => {
         e.preventDefault()
         this.subtrue()
-        console.log(this.state.questions)
 
-        if (this.state.title === "") {
-            this.buttonShake()
-            return;
-        }
-
-        if (this.state.descLength === 0 || this.state.descLength > 250) {
+        if (this.state.descLength > 300 || this.state.title === "") {
             this.buttonShake()
             return;
         }
@@ -292,48 +300,14 @@ export default class quizCreate extends Component {
             }
         }
 
-        // let quizId
-
-        // if (this.state.private === true)
-        //     quizId = uuid()
-        // else
-        //     quizId = window.globe.quizStore.length + 1
-
         let newQuiz = {
             title: this.state.title,
             description: descHold,
+            category: this.state.category,
             private: this.state.private
         }
 
-
-        // window.globe.quizStore.push(newQuiz)
-        // let questions = []
-        // for (let i = 0; i < this.state.questions.length; i++) {
-
-        //     let tempObj = {
-        //         question: this.state.questions[i].question,
-        //         answers: this.state.questions[i].answers,
-        //         correct: this.state.questions[i].correct
-        //     }
-        //     questions.push(tempObj)
-
-        //     // window.globe.questionStore.push(newQuestion)
-
-        //     let newAnswer = {
-        //         answers: this.state.questions[i].answers,
-        //         correct: this.state.questions[i].correct,
-        //         questionId: window.globe.questionStore.length,
-        //         quizId: quizId
-        //     }
-        //     window.globe.answerStore.push(newAnswer)
-        // }
         this.poster(newQuiz, this.state.questions)
-
-        console.log(newQuiz)
-        // this.setState({
-        //     submitted: true,
-        //     link: "/takeQuiz/" + quizId
-        // })
 
     }
 
@@ -350,40 +324,71 @@ export default class quizCreate extends Component {
 
     render() {
         const titleVal = this.titleCheck()
+        const catVal = this.categoryCheck()
         let descCount
-        if (this.state.descLength <= 250)
-            descCount = <span id="maxMsg">{this.state.descLength}/250 characters</span>
+        if (this.state.descLength <= 300)
+            descCount = <span id="maxMsg">{this.state.descLength}/300 characters</span>
         else
-            descCount = <span id="maxMsg" className="error">{this.state.descLength}/250 characters</span>
-        let desc =
-            <div id="desc-box">
-                <label htmlFor="description">Description: </label>
-                <textarea id="description" onChange={e => this.descChange(e.target.value)} defaultValue={this.state.description} />
-                {descCount}
-                <span>output:</span>
-                <p>{this.state.description}</p>
-            </div>
+            descCount = <span id="maxMsg" className="error">{this.state.descLength}/300 characters</span>
 
+        let categories = ['Animal',
+            'Art',
+            'Food',
+            'Geography',
+            'History',
+            'Literature',
+            'Movie/Tv',
+            'Music',
+            'Personal',
+            'Political',
+            'Random',
+            'Science',
+            'Sports',
+            'Video-Games']
+
+        let catDrop = categories.map((cat, index) => <option key={index} value={cat}>{cat}</option>)
         let formHead =
             <div>
-                <h3>Name your quiz</h3>
+                <h3>Name your quiz*:</h3>
                 <input type="text" className="question" onChange={e => this.titleChange(e.target.value)} />
                 {titleVal && <ValidationError message={"Please enter a title"} />}
-                <hr />
+                <h3>Describe your quiz: </h3>
+                <textarea id="description" onChange={e => this.descChange(e.target.value)} defaultValue={this.state.description} />
+                <br />
+                {descCount}
+                <h3>Category:</h3>
+                <select name="categories" id="categories" onChange={e => this.categoryChange(e.target.value)}>
+                    <option value="">Choose a category</option>
+                    {catDrop}
+                </select>
+                {catVal && <ValidationError message={"Please choose a category"} />}
+                <br />
+                <br />
+                {/* <span>output:</span>
+                <p>{this.state.description}</p> */}
+                <input type="checkbox" id="private" name="private" onChange={e => this.checkChange()} />
+                <label htmlFor="private" id="privateLabel">Make quiz private?</label>
             </div>
 
         let formTail =
             <div>
-                <input type="checkbox" id="private" name="private" onChange={e => this.checkChange()} />
-                <label htmlFor="private">Make quiz private</label>
-                <br />
                 <br />
                 <div className="questionFormButtons">
-                    <button type="submit" id="quizSub" onClick={e => this.subHandle(e)}>Submit</button>
+                    <button type="submit" id="quizSub" className="greenButton" onClick={e => this.subHandle(e)}>SUBMIT THIS QUIZ NOW</button>
                 </div>
             </div>
 
-        let question = <Question count={this.state.count} questChange={this.questChange} ansChange={this.answerChange} corChange={this.correctChange} bool={this.state.subAttempt} />
+        let homeButton =
+            <div className="buttonWrap">
+                <Link to={'/'} className="homeNavCreate yellowButton">GO HOME</Link>
+            </div>
+
+        let question = <Question count={this.state.count} questChange={this.questChange} ansChange={this.answerChange} corChange={this.correctChange} bool={this.state.subAttempt} values={this.state.questions} />
+
+        let foot =
+            <div className="foot">made by <a href="http://nassirjones.com" target="_blank" rel="noopener noreferrer" className="webLink">Nassir Jones</a>
+            </div>
+
         if (this.state.error === true) return (
             <div>
                 <h1 className="error">Sorry there was an error with this request. Maybe try again later or try something else.</h1>
@@ -391,59 +396,81 @@ export default class quizCreate extends Component {
             </div>
         )
 
+
         if (this.state.submitted)
             return (
                 <QuizLink link={this.state.link} />
             )
+
         else if (this.state.count === 20) {
             return (
                 <div>
-                    <h2>Create your quiz.</h2>
-                    <form id="quizForm">
-                        {formHead}
-                        {question}
-                        <div className="questionFormButtons">
-                            <button onClick={e => this.delQuestion(e)} id="remQuest">Question -</button>
+                    <div className="createWrap">
+                        <div id="createHeader">
+                            <h1 className="cornerTitle" id="createCorner">QUIZ BOWL</h1>
+                            {homeButton}
                         </div>
-                        <br />
-                        {desc}
-                        {formTail}
-                    </form>
+                        <form id="quizForm">
+                            {formHead}
+                            {question}
+                            <div className="questionFormButtons">
+                                <button onClick={e => this.delQuestion(e)} id="remQuest" className="redButton">DELETE LAST QUESTION</button>
+                            </div>
+                            <br />
+
+                            {formTail}
+                        </form>
+
+                    </div>
+                    {foot}
                 </div>
             )
         }
         else if (this.state.count > 1) {
             return (
                 <div>
-                    <h2>Create your quiz.</h2>
-                    <form id="quizForm">
-                        {formHead}
-                        {question}
-                        <div className="questionFormButtons">
-                            <button id="addQuest" onClick={e => this.addQuestion(e)}>Question +</button>
-                            <button onClick={e => this.delQuestion(e)} id="remQuest">Question -</button>
+                    <div className="createWrap">
+                        <div id="createHeader">
+                            <h1 className="cornerTitle" id="createCorner">QUIZ BOWL</h1>
+                            {homeButton}
                         </div>
-                        <br />
-                        {desc}
-                        {formTail}
-                    </form>
+                        <form id="quizForm">
+                            {formHead}
+                            {question}
+                            <div className="questionFormButtons">
+                                <button id="addQuest" onClick={e => this.addQuestion(e)} className="yellowButtonTwo">ANOTHER QUESTION</button>
+                                <button onClick={e => this.delQuestion(e)} id="remQuest" className="redButton">DELETE LAST QUESTION</button>
+                            </div>
+                            <br />
+                            {formTail}
+                        </form>
+
+                    </div>
+                    {foot}
                 </div>
             )
         }
         else {
             return (
                 <div>
-                    <h2>Create your quiz.</h2>
-                    <form id="quizForm">
-                        {formHead}
-                        {question}
-                        <div className="questionFormButtons">
-                            <button id="addQuest" onClick={e => this.addQuestion(e)}>Question +</button>
+                    <div className="createWrap">
+                        <div id="createHeader">
+                            <h1 className="cornerTitle" id="createCorner">QUIZ BOWL</h1>
+                            {homeButton}
                         </div>
-                        <br />
-                        {desc}
-                        {formTail}
-                    </form>
+                        <form id="quizForm">
+                            {formHead}
+                            {question}
+                            <div className="questionFormButtons">
+                                <button id="addQuest" onClick={e => this.addQuestion(e)} className="yellowButtonTwo">ANOTHER QUESTION</button>
+                            </div>
+                            <br />
+                            {formTail}
+                        </form>
+
+
+                    </div>
+                    {foot}
                 </div>
             )
         }

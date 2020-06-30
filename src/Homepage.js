@@ -1,14 +1,39 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './Homepage.css'
+// import config from './config';
+import './Homepage.css';
 
 
 export default class Homepage extends Component {
+
+    // fetcher = () => {
+    //     console.log("fetching")
+    //     fetch(config.ENDPOINT + '/quiz', {
+    //         method: 'GET',
+    //         headers: {
+    //             'content-type': 'application/json',
+    //             'Authorization': `Bearer ${config.REACT_APP_API_KEY}`
+    //         }
+    //     }).then(res => {
+    //         if (!res.ok)
+    //             return res.json().then(e => Promise.reject(e))
+    //         return res.json()
+    //     }).then(quiz => {
+    //         this.setState({
+    //             quiz,
+    //             loaded: true
+    //         })
+    //     }).catch(error => {
+    //         console.error({ error })
+    //     })
+    // }
+    // componentDidMount() {
+    // this.fetcher()
+    // }
     render() {
         return (
             <div id="homepage">
                 <h1 className="landingTitle">QUIZ BOWL</h1>
-                {/* <h2>Do you know as much as you think you do?</h2> */}
                 <div className="buttonWrap">
                     <Link to={'/createPrompt'} className="homeNav greenButton" >CREATE YOUR OWN QUIZ</Link>
                     <br />

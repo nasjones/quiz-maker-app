@@ -224,10 +224,11 @@ export default class quizCreate extends Component {
                     return res.json()
                 }).then(questions => {
                     if (i === questInput.length - 1)
-                        this.setState({
-                            submitted: true,
-                            link: "/takeQuiz/" + quiz.unique_key
-                        })
+                        this.props.history.push(`/quizLink/${quiz.unique_key}`)
+                    // this.setState({
+                    //     submitted: true,
+                    //     link: "/takeQuiz/" + quiz.unique_key
+                    // })
                 }).catch(errorTwo => {
                     console.error({ errorTwo })
                     this.setState({ error: true })

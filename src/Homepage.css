@@ -1,4 +1,25 @@
-/* @import url('./Goldana\ Outline\ Extrude.ttf'); */
+@font-face {
+    font-family: 'Goldana';
+    font-style: normal;
+    font-weight: 400;
+    /* src: url('../fonts/open-sans-v13-latin-regular.eot'); */
+    /* IE9 Compat Modes */
+    src: local('Goldana'), url('./Goldana Outline Extrude.ttf') format('truetype'), url('./Goldana Base.woff') format('woff'), url('./Goldana Outline Extrude.otf') format('opentype');
+    /* local('OpenSans'),  */
+    /* url('../fonts/open-sans-v13-latin-regular.eot?#iefix') format('embedded-opentype'), IE6-IE8 */
+    /* url('../fonts/open-sans-v13-latin-regular.woff2') format('woff2'), Super Modern Browsers */
+    /* url('../fonts/open-sans-v13-latin-regular.woff') format('woff'), Modern Browsers */
+    /* url('../fonts/open-sans-v13-latin-regular.ttf') format('truetype'), Safari, Android, iOS */
+    /* url('../fonts/open-sans-v13-latin-regular.svg#OpenSans') format('svg'); */
+    /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Avenir'), url('./Avenir-Light.ttf') format('truetype'), url('./Avenir-Light.woff') format('woff');
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 .landingTitle {
@@ -39,6 +60,7 @@
 
 .homeNav:hover, .homeNav:focus, .yellowButton:hover, .yellowButton:focus {
     box-shadow: 6px 6px #06D6A0;
+    cursor: pointer;
 }
 
 .greenButton {
@@ -68,15 +90,22 @@
 
 @media only screen and (min-width:420px) {
     .landingTitle {
-        text-align: center;
+        /* text-align: center; */
         font-size: 12em;
     }
     .homeNav {
-        font-size: 1em;
+        font-size: 1.2em;
     }
 }
 
-@media only screen and (min-width:620px) {
+@media only screen and (min-width:520px) {
+    .landingTitle {
+        text-align: center;
+        /* font-size: 12em; */
+    }
+}
+
+@media only screen and (min-width: 620px) {
     .buttonWrap {
         flex-direction: row;
     }

@@ -86,7 +86,7 @@ export default class QuizDisplay extends Component {
                     <div id="existHead">
                         <h1 className="cornerTitle" id="existCorner">QUIZ BOWL</h1>
                         <div className="buttonWrap">
-                            <Link to={'/'} className="homeNavExist yellowButton">GO HOME</Link>
+                            <Link to={'/existing-quizzes'} className="homeNavExist yellowButton">GO BACK</Link>
                         </div>
                     </div>
                     <Quiz title={this.state.quiz.title} questions={this.state.questions} description={this.state.quiz.description} />

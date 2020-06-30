@@ -5,8 +5,9 @@
     margin: 20px;
     /* padding: 30px; */
     color: black;
-    height: 100px;
+    height: 110px;
     overflow: auto;
+    position: relative;
     /* transition: height linear 5s; */
 }
 
@@ -32,10 +33,10 @@ a {
     padding: 20px;
 }
 
-.quizWrap:hover, .quizWrap:focus-within {
+/* .quizWrap:hover, .quizWrap:focus-within {
     box-shadow: 7px 12px #06D6A0;
     height: fit-content;
-}
+} */
 
 .redBox {
     background-color: #F35C5C;
@@ -47,10 +48,48 @@ a {
     box-shadow: 7px 12px #F35C5C;
 }
 
+.infoDisplay {
+    position: absolute;
+    /* z-index: 1000; */
+    right: 10px;
+    top: 10px;
+    opacity: 0;
+}
+
+.arrowLabeler {
+    width: 40px;
+    height: 30px;
+}
+
+#upsideDown {
+    transform: rotate(180deg);
+}
+
+/* #infoDisplay:before {
+    content: url('../downward-arrow.png');
+    height: 1px;
+    width: 1px;
+    transform: scale(.5);
+} */
+
+.imgArrow {
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    z-index: 1000;
+    right: 10px;
+    top: 10px;
+}
+
+#displayed {
+    height: fit-content;
+}
+
 @media only screen and (min-width:600px) {
     .quizWrap {
         width: 30%;
         padding: 20px;
+        height: 100px;
     }
     #quizStage {
         flex-basis: 32%;

@@ -41,9 +41,6 @@
     .buttonWrap {
         margin-block-start: .5em;
     }
-    #searchBar {
-        width: 45%;
-    }
 }
 
 @media only screen and (min-width:900px) {
@@ -52,5 +49,13 @@
     }
     .buttonWrap {
         margin-block-start: 1em;
+    }
+    #searchBar {
+        width: 45%;
+    }
+    #queryBox {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 }

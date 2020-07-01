@@ -7,12 +7,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 10%;
     padding-bottom: 10px;
+    overflow-wrap: anywhere;
 }
 
 #title {
-    margin-block-end: 0;
+    margin-block-end: 10px;
 }
 
 .quizButton {
@@ -23,7 +23,7 @@
 
 .quizNav {
     margin: 10px;
-    padding: 20px 45px 20px 15px;
+    padding: 20px 20px 20px 15px;
     border: 1px solid black;
     color: black;
     /* font-size: 2em; */
@@ -31,6 +31,12 @@
     text-decoration: none;
     font-family: 'Avenir';
     font-weight: 500;
+}
+
+@media only screen and (min-width:600px) {
+    .quizBox {
+        margin: 0 10%;
+    }
 }
 
 @media only screen and (min-width:1000px) {

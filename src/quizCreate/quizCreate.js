@@ -12,14 +12,14 @@ export default class quizCreate extends Component {
         this.state = {
             subAttempt: false,
             count: 1,
-            title: "",
+            title: '',
             titleTouch: false,
             questions: [],
-            description: "",
+            description: '',
             descLength: 0,
             private: false,
             catTouch: false,
-            category: "",
+            category: '',
             submitted: false,
             link: null,
             error: null
@@ -64,7 +64,7 @@ export default class quizCreate extends Component {
     }
 
     categoryCheck() {
-        if ((this.state.catTouch || this.state.subAttempt) && this.state.category === "")
+        if ((this.state.catTouch || this.state.subAttempt) && this.state.category === '')
             return true;
         return false;
     }
@@ -97,7 +97,7 @@ export default class quizCreate extends Component {
         if (answer !== undefined)
             answer = answer.replace(/\s+/g, ' ').trim()
         else
-            answer = ""
+            answer = ''
         if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct') && tempArr[i].hasOwnProperty('question')) {
             let tempAns = tempArr[i].answers
             let questHold = tempArr[i].question
@@ -225,16 +225,11 @@ export default class quizCreate extends Component {
                 }).then(questions => {
                     if (i === questInput.length - 1)
                         this.props.history.push(`/quizLink/${quiz.unique_key}`)
-                    // this.setState({
-                    //     submitted: true,
-                    //     link: "/takeQuiz/" + quiz.unique_key
-                    // })
                 }).catch(errorTwo => {
                     console.error({ errorTwo })
                     this.setState({ error: true })
                     i = 100
                 })
-                // value.pageUpdate()
             }
         }).catch(errorOne => {
             console.error({ errorOne })
@@ -261,10 +256,10 @@ export default class quizCreate extends Component {
     }
 
     buttonShake() {
-        let butt = document.getElementById("quizSub")
-        butt.classList.add("shaker")
-        butt.addEventListener("animationend", (e) => {
-            butt.classList.remove("shaker");
+        let butt = document.getElementById('quizSub')
+        butt.classList.add('shaker')
+        butt.addEventListener('animationend', (e) => {
+            butt.classList.remove('shaker');
         });
     }
 
@@ -272,7 +267,7 @@ export default class quizCreate extends Component {
         e.preventDefault()
         this.subtrue()
 
-        if (this.state.descLength > 300 || this.state.title === "") {
+        if (this.state.descLength > 300 || this.state.title === '' || this.state.category === '') {
             this.buttonShake()
             return;
         }
@@ -284,16 +279,16 @@ export default class quizCreate extends Component {
                 this.buttonShake()
                 return;
             }
-            if (!this.state.questions[i].hasOwnProperty("question") || !this.state.questions[i].hasOwnProperty("answers") || !this.state.questions[i].hasOwnProperty("correct")) {
+            if (!this.state.questions[i].hasOwnProperty('question') || !this.state.questions[i].hasOwnProperty('answers') || !this.state.questions[i].hasOwnProperty('correct')) {
                 this.buttonShake()
                 return;
             }
-            if (this.state.questions[i].question === "") {
+            if (this.state.questions[i].question === '') {
                 this.buttonShake()
                 return;
             }
             for (let j = 0; j < 4; j++) {
-                if (this.state.questions[i].answers[j] === undefined || this.state.questions[i].answers[j] === null || this.state.questions[i].answers[j] === "") {
+                if (this.state.questions[i].answers[j] === undefined || this.state.questions[i].answers[j] === null || this.state.questions[i].answers[j] === '') {
                     this.buttonShake()
                     return;
                 }
@@ -328,9 +323,9 @@ export default class quizCreate extends Component {
         const catVal = this.categoryCheck()
         let descCount
         if (this.state.descLength <= 300)
-            descCount = <span id="maxMsg">{this.state.descLength}/300 characters</span>
+            descCount = <span id='maxMsg'>{this.state.descLength}/300 characters</span>
         else
-            descCount = <span id="maxMsg" className="error">{this.state.descLength}/300 characters</span>
+            descCount = <span id='maxMsg' className='error'>{this.state.descLength}/300 characters</span>
 
         let categories = ['Animal',
             'Art',
@@ -350,50 +345,50 @@ export default class quizCreate extends Component {
         let catDrop = categories.map((cat, index) => <option key={index} value={cat}>{cat}</option>)
         let formHead =
             <div>
-                <h3>Name your quiz*:</h3>
-                <input type="text" className="question" onChange={e => this.titleChange(e.target.value)} />
-                {titleVal && <ValidationError message={"Please enter a title"} />}
+                <h3>Name your quiz:</h3>
+                <input type='text' className='question' onChange={e => this.titleChange(e.target.value)} />
+                {titleVal && <ValidationError message={'Please enter a title'} />}
                 <h3>Describe your quiz: </h3>
-                <textarea id="description" onChange={e => this.descChange(e.target.value)} defaultValue={this.state.description} />
+                <textarea id='description' onChange={e => this.descChange(e.target.value)} defaultValue={this.state.description} />
                 <br />
                 {descCount}
                 <h3>Category:</h3>
-                <select name="categories" id="categories" onChange={e => this.categoryChange(e.target.value)}>
-                    <option value="">Choose a category</option>
+                <select name='categories' id='categories' onChange={e => this.categoryChange(e.target.value)}>
+                    <option value=''>Choose a category</option>
                     {catDrop}
                 </select>
-                {catVal && <ValidationError message={"Please choose a category"} />}
+                {catVal && <ValidationError message={'Please choose a category'} />}
                 <br />
                 <br />
                 {/* <span>output:</span>
                 <p>{this.state.description}</p> */}
-                <input type="checkbox" id="private" name="private" onChange={e => this.checkChange()} />
-                <label htmlFor="private" id="privateLabel">Make quiz private?</label>
+                <input type='checkbox' id='private' name='private' onChange={e => this.checkChange()} />
+                <label htmlFor='private' id='privateLabel'>Make quiz private?</label>
             </div>
 
         let formTail =
             <div>
                 <br />
-                <div className="questionFormButtons">
-                    <button type="submit" id="quizSub" className="greenButton" onClick={e => this.subHandle(e)}>SUBMIT THIS QUIZ NOW</button>
+                <div className='questionFormButtons'>
+                    <button type='submit' id='quizSub' className='greenButton' onClick={e => this.subHandle(e)}>SUBMIT THIS QUIZ NOW</button>
                 </div>
             </div>
 
         let homeButton =
-            <div className="buttonWrap">
-                <Link to={'/'} className="homeNavCreate yellowButton">GO HOME</Link>
+            <div className='buttonWrap'>
+                <Link to={'/'} className='homeNavCreate yellowButton'>GO HOME</Link>
             </div>
 
         let question = <Question count={this.state.count} questChange={this.questChange} ansChange={this.answerChange} corChange={this.correctChange} bool={this.state.subAttempt} values={this.state.questions} />
 
         let foot =
-            <div className="foot">made by <a href="http://nassirjones.com" target="_blank" rel="noopener noreferrer" className="webLink">Nassir Jones</a>
+            <div className='foot'>made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a>
             </div>
 
         if (this.state.error === true) return (
             <div>
-                <h1 className="error">Sorry there was an error with this request. Maybe try again later or try something else.</h1>
-                <a href="/">Return home</a>
+                <h1 className='error'>Sorry there was an error with this request. Maybe try again later or try something else.</h1>
+                <a href='/'>Return home</a>
             </div>
         )
 
@@ -406,16 +401,16 @@ export default class quizCreate extends Component {
         else if (this.state.count === 20) {
             return (
                 <div>
-                    <div className="createWrap">
-                        <div id="createHeader">
-                            <h1 className="cornerTitle" id="createCorner">QUIZ BOWL</h1>
+                    <div className='createWrap'>
+                        <div id='createHeader'>
+                            <h1 className='cornerTitle' id='createCorner'>QUIZ BOWL</h1>
                             {homeButton}
                         </div>
-                        <form id="quizForm">
+                        <form id='quizForm'>
                             {formHead}
                             {question}
-                            <div className="questionFormButtons">
-                                <button onClick={e => this.delQuestion(e)} id="remQuest" className="redButton">DELETE LAST QUESTION</button>
+                            <div className='questionFormButtons'>
+                                <button onClick={e => this.delQuestion(e)} id='remQuest' className='redButton'>DELETE LAST QUESTION</button>
                             </div>
                             <br />
 
@@ -430,17 +425,17 @@ export default class quizCreate extends Component {
         else if (this.state.count > 1) {
             return (
                 <div>
-                    <div className="createWrap">
-                        <div id="createHeader">
-                            <h1 className="cornerTitle" id="createCorner">QUIZ BOWL</h1>
+                    <div className='createWrap'>
+                        <div id='createHeader'>
+                            <h1 className='cornerTitle' id='createCorner'>QUIZ BOWL</h1>
                             {homeButton}
                         </div>
-                        <form id="quizForm">
+                        <form id='quizForm'>
                             {formHead}
                             {question}
-                            <div className="questionFormButtons">
-                                <button id="addQuest" onClick={e => this.addQuestion(e)} className="yellowButtonTwo">ANOTHER QUESTION</button>
-                                <button onClick={e => this.delQuestion(e)} id="remQuest" className="redButton">DELETE LAST QUESTION</button>
+                            <div className='questionFormButtons'>
+                                <button id='addQuest' onClick={e => this.addQuestion(e)} className='yellowButtonTwo'>ANOTHER QUESTION</button>
+                                <button onClick={e => this.delQuestion(e)} id='remQuest' className='redButton'>DELETE LAST QUESTION</button>
                             </div>
                             <br />
                             {formTail}
@@ -454,16 +449,16 @@ export default class quizCreate extends Component {
         else {
             return (
                 <div>
-                    <div className="createWrap">
-                        <div id="createHeader">
-                            <h1 className="cornerTitle" id="createCorner">QUIZ BOWL</h1>
+                    <div className='createWrap'>
+                        <div id='createHeader'>
+                            <h1 className='cornerTitle' id='createCorner'>QUIZ BOWL</h1>
                             {homeButton}
                         </div>
-                        <form id="quizForm">
+                        <form id='quizForm'>
                             {formHead}
                             {question}
-                            <div className="questionFormButtons">
-                                <button id="addQuest" onClick={e => this.addQuestion(e)} className="yellowButtonTwo">ANOTHER QUESTION</button>
+                            <div className='questionFormButtons'>
+                                <button id='addQuest' onClick={e => this.addQuestion(e)} className='yellowButtonTwo'>ANOTHER QUESTION</button>
                             </div>
                             <br />
                             {formTail}

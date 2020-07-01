@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import QuizBox from './quizBox';
 import config from '../config';
-// import QuizContext from '../QuizContext';
 import { Link } from 'react-router-dom';
 import './existing-quizzes.css';
-
-// import './question.css';
-
+import he from 'he'
 
 export default class existingQuiz extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            search: "",
-            category: "All",
+            search: '',
+            category: 'All',
             loaded: false,
             quiz: null,
             selected: null
@@ -27,7 +24,7 @@ export default class existingQuiz extends Component {
     }
 
     categoryFilter = (quiz) => {
-        if (this.state.category === "All")
+        if (this.state.category === 'All')
             return true;
         else if (quiz.category === this.state.category)
             return true;
@@ -94,10 +91,6 @@ export default class existingQuiz extends Component {
     }
 
     render() {
-        // return (
-        // <QuizContext.Consumer>
-        //     {(value) => {
-
 
         if (!this.state.loaded)
             return (
@@ -112,7 +105,7 @@ export default class existingQuiz extends Component {
         const listed = searched.map((quiz, index) => {
 
             return (
-                <QuizBox key={quiz.unique_key} id={quiz.unique_key} title={quiz.title} desc={quiz.description} category={quiz.category} index={index} checked={this.state.selected === index} radChange={this.radChange} />
+                <QuizBox key={quiz.unique_key} id={quiz.unique_key} title={he.decode(quiz.title)} desc={he.decode(quiz.description)} category={quiz.category} index={index} checked={this.state.selected === index} radChange={this.radChange} />
             )
         })
 
@@ -133,52 +126,48 @@ export default class existingQuiz extends Component {
 
         let catDrop = categories.map((cat, index) => <option key={index} value={cat}>{cat}</option>)
 
-        let query = <div id="queryBox">
-            <input type="text" placeholder="Search" id="searchBar" onChange={e => this.searchChange(e.target.value)} />
-            <select name="categories" id="categories" onChange={e => this.categoryChange(e.target.value)}>
-                <option value="All">All</option>
+        let query = <div id='queryBox'>
+            <input type='text' placeholder='Search' id='searchBar' onChange={e => this.searchChange(e.target.value)} />
+            <select name='categories' id='categories' onChange={e => this.categoryChange(e.target.value)}>
+                <option value='All'>All</option>
                 {catDrop}
             </select>
         </div>
 
         if (listed.length === 0)
             return (
-                <div className="quizPage">
-                    <div id="existHead">
-                        <h1 className="cornerTitle" id="existCorner">QUIZ BOWL</h1>
-                        <div className="buttonWrap">
-                            <Link to={'/'} className="homeNavExist yellowButton">GO HOME</Link>
+                <div className='quizPage'>
+                    <div id='existHead'>
+                        <h1 className='cornerTitle' id='existCorner'>QUIZ BOWL</h1>
+                        <div className='buttonWrap'>
+                            <Link to={'/'} className='homeNavExist yellowButton'>GO HOME</Link>
                         </div>
                     </div>
                     {query}
-                    <div id="quizStage">
+                    <div id='quizStage'>
                         <h2>Sorry no quizzes matched your query.</h2>
                     </div>
-                    <div className="foot" >made by <a href="http://nassirjones.com" target="_blank" rel="noopener noreferrer" className="webLink">Nassir Jones</a>
+                    <div className='foot' >made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a>
                     </div>
                 </div>
             )
         else
             return (
-                <div className="quizPage">
-                    <div id="existHead">
-                        <h1 className="cornerTitle" id="existCorner">QUIZ BOWL</h1>
-                        <div className="buttonWrap">
-                            <Link to={'/'} className="homeNavExist yellowButton">GO HOME</Link>
+                <div className='quizPage'>
+                    <div id='existHead'>
+                        <h1 className='cornerTitle' id='existCorner'>QUIZ BOWL</h1>
+                        <div className='buttonWrap'>
+                            <Link to={'/'} className='homeNavExist yellowButton'>GO HOME</Link>
                         </div>
                     </div>
                     {query}
-                    <div id="quizStage">
+                    <div id='quizStage'>
                         {listed}
                     </div>
-                    <div className="foot" >made by <a href="http://nassirjones.com" target="_blank" rel="noopener noreferrer" className="webLink">Nassir Jones</a>
+                    <div className='foot' >made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a>
                     </div>
                 </div>
             )
-
     }
-    // }
-    // </QuizContext.Consumer>
-    // )
 }
-// }
+

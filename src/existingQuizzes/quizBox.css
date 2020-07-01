@@ -65,6 +65,11 @@ a {
     transform: rotate(180deg);
 }
 
+.desc {
+    /* overflow-wrap: break-word; */
+    word-break: break-all;
+}
+
 /* #infoDisplay:before {
     content: url('../downward-arrow.png');
     height: 1px;

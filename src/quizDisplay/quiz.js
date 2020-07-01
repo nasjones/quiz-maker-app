@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Question from './question';
+import Break from './break'
 import { Link } from 'react-router-dom';
+import he from 'he'
 
 
 export default class Quiz extends Component {
@@ -34,11 +36,7 @@ export default class Quiz extends Component {
         this.setState({
             break: true
         })
-        // if (this.state.current < this.props.questions.length) {
-        //     this.setState({
-        //         current: this.state.current + 1
-        //     })
-        // }
+
     }
 
     radChange = (e) => {
@@ -48,9 +46,10 @@ export default class Quiz extends Component {
     }
 
     begin = () => {
+
         this.setState({
             current: this.state.current + 1,
-            answer: this.props.questions[0].correct
+            answer: he.decode(this.props.questions[0].correct)
         })
     }
 
@@ -58,7 +57,7 @@ export default class Quiz extends Component {
 
         this.setState({
             current: this.state.current + 1,
-            answer: this.props.questions[this.state.current].correct,
+            answer: he.decode(this.props.questions[this.state.current].correct),
             break: false,
             correct: null,
         })
@@ -79,54 +78,48 @@ export default class Quiz extends Component {
     render() {
         if (this.state.finished === true)
             return (
-                <div className="quizBox">
-                    <h2 id="title">{this.props.title}</h2>
+                <div className='quizBox'>
+                    <h2 id='title'>{this.props.title}</h2>
                     <h3>Your score was:</h3>
                     <h3><b>{this.state.count}/{this.props.questions.length}</b></h3>
                     <br />
-                    <div className="buttonWrap">
-                        <button type="button" className="yellowButton quizNav" onClick={this.quizReset}>Take quiz again!</button>
-                        <Link to={'/existing-quizzes'} className="redButton quizNav">Take a different quiz</Link>
+                    <div className='buttonWrap'>
+                        <button type='button' className='yellowButton quizNav' onClick={this.quizReset}>Take quiz again!</button>
+                        <Link to={'/existing-quizzes'} className='redButton quizNav'>Take a different quiz</Link>
                     </div>
                 </div>)
 
         if (this.state.break === true) {
-            if (this.state.current === this.props.questions.length)
-                return (<div className="quizBox">
-                    <h2 id="title">{this.props.title}</h2>
+            let buttonOne = <button type='button' className='yellowButton quizNav' onClick={e => this.setState({
+                finished: true
+            })}>See results</button>
+            let buttonTwo = <button type='button' className='yellowButton quizNav' onClick={this.nextQuest}>Next</button>
+            return (
+                <div className='quizBox'>
+                    <h2 id='title'>{this.props.title}</h2>
                     <h3>{((this.state.correct) ? 'Correct' : 'Incorrect')}</h3>
                     <p>The answer was <b>{this.state.answer}</b></p>
+                    <Break question={he.decode(this.props.questions[this.state.current - 1].question)} answers={this.props.questions[this.state.current - 1].answers} correct={this.state.answer} selected={this.state.selection} />
                     <br />
-                    <button type="button" className="yellowButton quizNav" onClick={e => this.setState({
-                        finished: true
-                    })}>See results</button>
+                    {((this.state.current === this.props.questions.length) ? buttonOne : buttonTwo)}
                 </div>)
-            else
-                return (<div className="quizBox">
-                    <h2 id="title">{this.props.title}</h2>
-                    <h3>{((this.state.correct) ? 'Correct' : 'Incorrect')}</h3>
-                    <p>The answer was <b>{this.state.answer}</b></p>
-                    <br />
-                    <button type="button" className="yellowButton quizNav" onClick={this.nextQuest}>Next</button>
-                </div>)
-
         }
         if (this.state.current === 0)
             return (
-                <div className="quizBox">
-                    <h2 id="title">{this.props.title}</h2>
-                    <span>{this.props.description}</span>
+                <div className='quizBox'>
+                    <h2 id='title'>{this.props.title}</h2>
+                    <p className="desc">{this.props.description}</p>
                     <br />
-                    <button type="button" className="yellowButton quizNav" onClick={this.begin}>Begin</button>
+                    <button type='button' className='yellowButton quizNav' onClick={this.begin}>Begin</button>
                 </div>
             )
         else if (this.state.current <= this.props.questions.length)
             return (
-                <form className="quizBox">
-                    <h2 id="title">{this.props.title}</h2>
+                <form className='quizBox'>
+                    <h2 id='title'>{this.props.title}</h2>
                     <h3>question {this.state.current}/{this.props.questions.length}</h3>
                     <Question question={this.props.questions[this.state.current - 1].question} answers={this.props.questions[this.state.current - 1].answers} radChange={this.radChange} />
-                    <button type="submit" className="yellowButton quizNav" onClick={e => this.questSub(e)}>Submit</button>
+                    <button type='submit' className='yellowButton quizNav' onClick={e => this.questSub(e)}>Submit</button>
                     <span>Score:{this.state.count}</span>
                 </form>
             )

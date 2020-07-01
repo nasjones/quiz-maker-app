@@ -3,6 +3,7 @@ import Quiz from './quiz';
 import './quizDisplay.css';
 import config from '../config';
 import { Link } from 'react-router-dom'
+import he from 'he'
 
 export default class QuizDisplay extends Component {
     constructor(props) {
@@ -15,8 +16,6 @@ export default class QuizDisplay extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        //   window.globe = { quizStore, answerStore, questionStore }
-
         const options = {
             method: 'GET',
             headers: {
@@ -60,36 +59,17 @@ export default class QuizDisplay extends Component {
         return array;
     }
 
-    // componentDidMount() {
-    //     // console.log(window.globe)
-    //     // let quizInfo
-
-    //     // let questions = window.globe.questionStore.filter(question => {
-    //     //     return question.quizId.toString() === this.state.quizId
-    //     // })
-
-    //     // let answers = window.globe.answerStore.filter(answers => {
-    //     //     return answers.quizId.toString() === this.state.quizId
-    //     // })
-    //     // console.log(questions)
-    //     // this.setState({
-    //     //     questions: questions,
-    //     //     answers: answers
-    //     // })
-    // }
-
     render() {
         if (this.state.loaded)
             return (
-
-                <div className="quizPage">
-                    <div id="existHead">
-                        <h1 className="cornerTitle" id="existCorner">QUIZ BOWL</h1>
-                        <div className="buttonWrap">
-                            <Link to={'/existing-quizzes'} className="homeNavExist yellowButton">GO BACK</Link>
+                <div className='quizPage'>
+                    <div id='existHead'>
+                        <h1 className='cornerTitle' id='existCorner'>QUIZ BOWL</h1>
+                        <div className='buttonWrap'>
+                            <Link to={'/existing-quizzes'} className='homeNavExist yellowButton'>GO BACK</Link>
                         </div>
                     </div>
-                    <Quiz title={this.state.quiz.title} questions={this.state.questions} description={this.state.quiz.description} />
+                    <Quiz title={he.decode(this.state.quiz.title)} questions={this.state.questions} description={he.decode(this.state.quiz.description)} />
                 </div>
             )
         else

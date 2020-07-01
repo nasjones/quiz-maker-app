@@ -5,7 +5,7 @@ export default function QuestValidation(props) {
         if (props.questTouch || props.bool)
             if (props.quest.value.replace(/\s+/g, ' ').trim().length === 0) {
                 return (
-                    <div className="error">{props.message}</div>
+                    <div className='error'>{props.message}</div>
                 );
             }
 

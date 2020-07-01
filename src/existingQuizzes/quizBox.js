@@ -12,14 +12,6 @@ export default class QuizBox extends Component {
         }
     }
 
-    // radChange = (value) => {
-    //     console.log(value)
-    //     // if (value)
-    //     this.setState({
-    //         selected: value
-    //     })
-    // }
-
     hoverIn = (e) => {
         e.currentTarget.children[1].checked = true;
         this.props.radChange(e.currentTarget.children[1]);
@@ -31,25 +23,26 @@ export default class QuizBox extends Component {
     }
 
     render() {
+
         let box
         if (this.props.index % 2 === 0)
-            box = "yellowBox"
+            box = 'yellowBox'
         else
-            box = "redBox"
+            box = 'redBox'
 
-        let revImageLabel = <label htmlFor={`infoDisplay${this.props.index}`} className="arrowLabeler"><img src={arrow} className="imgArrow" id="upsideDown" alt="arrowImage" /></label>
-        let imageLabel = <label htmlFor={`infoDisplay${this.props.index}`} className="arrowLabeler"><img src={arrow} className="imgArrow" alt="arrowImage" /></label>
+        let revImageLabel = <label htmlFor={`infoDisplay${this.props.index}`} className='arrowLabeler'><img src={arrow} className='imgArrow' id='upsideDown' alt='arrowImage' /></label>
+        let imageLabel = <label htmlFor={`infoDisplay${this.props.index}`} className='arrowLabeler'><img src={arrow} className='imgArrow' alt='arrowImage' /></label>
         if (window.innerWidth > 900) {
             if (this.props.checked)
                 return (
-                    <div className={`quizWrap ${box}`} id="displayed" onMouseLeave={e => this.hoverOut(e)}>
+                    <div className={`quizWrap ${box}`} id='displayed' onMouseLeave={e => this.hoverOut(e)}>
                         {revImageLabel}
-                        <input type="checkbox" checked={this.props.checked} className="infoDisplay" id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
-                        <div className="qBoxLink">
+                        <input type='checkbox' checked={this.props.checked} className='infoDisplay' id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
+                        <div className='qBoxLink'>
                             <Link to={`/takeQuiz/${this.props.id}`} >
                                 <h2>{this.props.title}</h2>
                                 <h3>Category: {this.props.category}</h3>
-                                <p>{this.props.desc}</p>
+                                <p className="desc">{this.props.desc}</p>
                             </Link>
                         </div>
                     </div>
@@ -58,12 +51,11 @@ export default class QuizBox extends Component {
                 return (
                     <div className={`quizWrap ${box}`} onMouseOver={e => this.hoverIn(e)}>
                         {imageLabel}
-                        <input type="checkbox" checked={this.props.checked} className="infoDisplay" id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
-                        <div className="qBoxLink">
+                        <input type='checkbox' checked={this.props.checked} className='infoDisplay' id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
+                        <div className='qBoxLink'>
                             <Link to={`/takeQuiz/${this.props.id}`} >
                                 <h2>{this.props.title}</h2>
                                 <h3>Category: {this.props.category}</h3>
-                                <p>{this.props.desc}</p>
                             </Link>
                         </div>
                     </div>
@@ -72,14 +64,14 @@ export default class QuizBox extends Component {
         else {
             if (this.props.checked)
                 return (
-                    <div className={`quizWrap ${box}`} id="displayed" >
+                    <div className={`quizWrap ${box}`} id='displayed' >
                         {revImageLabel}
-                        <input type="checkbox" checked={this.props.checked} className="infoDisplay" id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
-                        <div className="qBoxLink">
+                        <input type='checkbox' checked={this.props.checked} className='infoDisplay' id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
+                        <div className='qBoxLink'>
                             <Link to={`/takeQuiz/${this.props.id}`} >
                                 <h2>{this.props.title}</h2>
                                 <h3>Category: {this.props.category}</h3>
-                                <p>{this.props.desc}</p>
+                                <p className="desc">{this.props.desc}</p>
                             </Link>
                         </div>
                     </div>
@@ -88,12 +80,11 @@ export default class QuizBox extends Component {
                 return (
                     <div className={`quizWrap ${box}`} >
                         {imageLabel}
-                        <input type="checkbox" checked={this.props.checked} className="infoDisplay" id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
-                        <div className="qBoxLink">
+                        <input type='checkbox' checked={this.props.checked} className='infoDisplay' id={`infoDisplay${this.props.index}`} value={this.state.index} onChange={e => this.props.radChange(e.target)} />
+                        <div className='qBoxLink'>
                             <Link to={`/takeQuiz/${this.props.id}`} >
                                 <h2>{this.props.title}</h2>
                                 <h3>Category: {this.props.category}</h3>
-                                <p>{this.props.desc}</p>
                             </Link>
                         </div>
                     </div>

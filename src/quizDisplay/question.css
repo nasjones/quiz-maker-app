@@ -22,6 +22,10 @@
     background: rgba(255, 255, 255, 0);
 }
 
+.breakOpt>* {
+    text-decoration: line-through;
+}
+
 .quizOpt:checked+label::before {
     background-color: #06D6A0;
 }
@@ -32,4 +36,13 @@
 
 .questLabel {
     margin: 10px;
+}
+
+.greenOpt {
+    color: #06D6A0;
+}
+
+.redOpt {
+    color: #F35C5C;
+    text-decoration: line-through;
 }

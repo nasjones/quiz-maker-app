@@ -70,6 +70,10 @@ export default class quizCreate extends Component {
     }
 
     questChange = (i, question) => {
+        if (question !== undefined)
+            question = question.replace(/\s+/g, ' ').trim()
+        else
+            question = ''
         let tempArr = this.state.questions
         if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct')) {
             let tempAns = tempArr[i].answers
@@ -154,6 +158,11 @@ export default class quizCreate extends Component {
     }
 
     correctChange = (i, ans) => {
+        if (ans !== undefined)
+            ans = ans.replace(/\s+/g, ' ').trim()
+        else
+            ans = ''
+
         let tempArr = this.state.questions
         if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('question')) {
             let tempAns = tempArr[i].answers

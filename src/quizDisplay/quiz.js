@@ -99,7 +99,7 @@ export default class Quiz extends Component {
                     <h2 id='title'>{this.props.title}</h2>
                     <h3>{((this.state.correct) ? 'Correct' : 'Incorrect')}</h3>
                     <p>The answer was <b>{this.state.answer}</b></p>
-                    <Break question={he.decode(this.props.questions[this.state.current - 1].question)} answers={this.props.questions[this.state.current - 1].answers} correct={this.state.answer} selected={this.state.selection} />
+                    <Break question={he.decode(this.props.questions[this.state.current - 1].question)} answers={this.props.questions[this.state.current - 1].answers} correct={he.decode(this.state.answer)} selected={this.state.selection} />
                     <br />
                     {((this.state.current === this.props.questions.length) ? buttonOne : buttonTwo)}
                 </div>)

@@ -5,6 +5,7 @@
 
 .quizOpt {
     opacity: 0;
+    position: absolute;
 }
 
 .quizOpt+label::before {

@@ -31,7 +31,7 @@
 }
 
 #homepage {
-    padding: 50px;
+    padding: 20px;
 }
 
 .homeNav {
@@ -77,17 +77,15 @@
 }
 
 @media only screen and (min-width:420px) {
+    #homepage {
+        padding: 50px;
+    }
     .landingTitle {
         font-size: 12em;
+        text-align: center;
     }
     .homeNav {
         font-size: 1.2em;
-    }
-}
-
-@media only screen and (min-width:520px) {
-    .landingTitle {
-        text-align: center;
     }
 }
 

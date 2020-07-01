@@ -94,7 +94,7 @@ export default class existingQuiz extends Component {
 
         if (!this.state.loaded)
             return (
-                <h1>Loading..</h1>
+                <h1 className="landingTitle">Loading..</h1>
             )
         const category = this.state.quiz.filter(quiz => {
             return this.categoryFilter(quiz)

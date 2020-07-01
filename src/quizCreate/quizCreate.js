@@ -360,8 +360,6 @@ export default class quizCreate extends Component {
                 {catVal && <ValidationError message={'Please choose a category'} />}
                 <br />
                 <br />
-                {/* <span>output:</span>
-                <p>{this.state.description}</p> */}
                 <input type='checkbox' id='private' name='private' onChange={e => this.checkChange()} />
                 <label htmlFor='private' id='privateLabel'>Make quiz private?</label>
             </div>

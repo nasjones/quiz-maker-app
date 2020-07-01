@@ -74,7 +74,7 @@ export default class QuizDisplay extends Component {
             )
         else
             return (
-                <h1>Loading...</h1>
+                <h1 className="landingTitle">Loading...</h1>
             )
     }
 }

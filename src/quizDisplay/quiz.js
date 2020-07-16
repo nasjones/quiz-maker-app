@@ -90,10 +90,15 @@ export default class Quiz extends Component {
                 </div>)
 
         if (this.state.break === true) {
-            let buttonOne = <button type='button' className='yellowButton quizNav' onClick={e => this.setState({
-                finished: true
-            })}>See results</button>
-            let buttonTwo = <button type='button' className='yellowButton quizNav' onClick={this.nextQuest}>Next</button>
+            let buttonOne =
+                <button type='button' className='yellowButton quizNav'
+                    onClick={e => this.setState({ finished: true })}>
+                    See results
+                </button>
+            let buttonTwo =
+                <button type='button' className='yellowButton quizNav' onClick={this.nextQuest}>
+                    Next
+                </button>
             return (
                 <div className='quizBox'>
                     <h2 id='title'>{this.props.title}</h2>
@@ -102,7 +107,8 @@ export default class Quiz extends Component {
                     <Break question={he.decode(this.props.questions[this.state.current - 1].question)} answers={this.props.questions[this.state.current - 1].answers} correct={he.decode(this.state.answer)} selected={this.state.selection} />
                     <br />
                     {((this.state.current === this.props.questions.length) ? buttonOne : buttonTwo)}
-                </div>)
+                </div>
+            )
         }
         if (this.state.current === 0)
             return (
@@ -110,7 +116,9 @@ export default class Quiz extends Component {
                     <h2 id='title'>{this.props.title}</h2>
                     <p className="desc">{this.props.description}</p>
                     <br />
-                    <button type='button' className='yellowButton quizNav' onClick={this.begin}>Begin</button>
+                    <button type='button' className='yellowButton quizNav' onClick={this.begin}>
+                        Begin
+                    </button>
                 </div>
             )
         else if (this.state.current <= this.props.questions.length)
@@ -118,8 +126,14 @@ export default class Quiz extends Component {
                 <form className='quizBox'>
                     <h2 id='title'>{this.props.title}</h2>
                     <h3>question {this.state.current}/{this.props.questions.length}</h3>
-                    <Question question={this.props.questions[this.state.current - 1].question} answers={this.props.questions[this.state.current - 1].answers} radChange={this.radChange} />
-                    <button type='submit' className='yellowButton quizNav' onClick={e => this.questSub(e)}>Submit</button>
+                    <Question question={this.props.questions[this.state.current - 1].question}
+                        answers={this.props.questions[this.state.current - 1].answers}
+                        radChange={this.radChange}
+                    />
+                    <button type='submit' className='yellowButton quizNav'
+                        onClick={e => this.questSub(e)}>
+                        Submit
+                    </button>
                     <span>Score:{this.state.count}</span>
                 </form>
             )

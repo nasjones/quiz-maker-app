@@ -18,7 +18,9 @@ export default class existingQuiz extends Component {
     }
 
     search = (quiz) => {
-        if (quiz.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || quiz.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+        if (quiz.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+            || quiz.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+        )
             return true;
         return false
     }

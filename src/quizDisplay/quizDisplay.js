@@ -41,6 +41,11 @@ export default class QuizDisplay extends Component {
                 questions: questOut,
                 loaded: true
             })
+        }).catch((e) => {
+            console.error(e)
+            this.setState({
+                error: true
+            })
         })
 
     }
@@ -60,7 +65,18 @@ export default class QuizDisplay extends Component {
     }
 
     render() {
-        if (this.state.loaded)
+        if (this.state.error)
+            return (
+                <div className='quizPage'>
+                    <h1 className='landingTitle'>QUIZ BOWL</h1>
+                    <h2 className='error'>Sorry there was a problem processing your request try again later or try a different quiz.</h2>
+                    <div className='buttonWrap'>
+                        <Link to={'/existing-quizzes'} className='homeNavExist yellowButton'>GO BACK</Link>
+                    </div>
+                    <div className='foot'>made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a></div>
+                </div>
+            )
+        else if (this.state.loaded)
             return (
                 <div className='quizPage'>
                     <div id='existHead'>

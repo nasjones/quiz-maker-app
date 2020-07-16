@@ -58,13 +58,17 @@ export default class quizCreate extends Component {
     }
 
     titleCheck() {
-        if ((this.state.titleTouch || this.state.subAttempt) && this.state.title.length === 0)
+        if ((this.state.titleTouch
+            || this.state.subAttempt)
+            && this.state.title.length === 0)
             return true;
         return false;
     }
 
     categoryCheck() {
-        if ((this.state.catTouch || this.state.subAttempt) && this.state.category === '')
+        if ((this.state.catTouch
+            || this.state.subAttempt)
+            && this.state.category === '')
             return true;
         return false;
     }
@@ -75,16 +79,25 @@ export default class quizCreate extends Component {
         else
             question = ''
         let tempArr = this.state.questions
-        if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct')) {
+        if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && tempArr[i].hasOwnProperty('correct')
+        ) {
             let tempAns = tempArr[i].answers
             let tempCorr = tempArr[i].correct
             tempArr[i] = { question: question, answers: tempAns, correct: tempCorr }
         }
-        else if (tempArr[i] && !tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct')) {
+        else if (tempArr[i]
+            && !tempArr[i].hasOwnProperty('answers')
+            && tempArr[i].hasOwnProperty('correct')
+        ) {
             let tempCorr = tempArr[i].correct
             tempArr[i] = { question: question, correct: tempCorr }
         }
-        else if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && !tempArr[i].hasOwnProperty('correct')) {
+        else if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && !tempArr[i].hasOwnProperty('correct')
+        ) {
             let tempAns = tempArr[i].answers
             tempArr[i] = { question: question, answers: tempAns }
         }
@@ -102,46 +115,74 @@ export default class quizCreate extends Component {
             answer = answer.replace(/\s+/g, ' ').trim()
         else
             answer = ''
-        if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct') && tempArr[i].hasOwnProperty('question')) {
+        if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && tempArr[i].hasOwnProperty('correct')
+            && tempArr[i].hasOwnProperty('question')
+        ) {
             let tempAns = tempArr[i].answers
             let questHold = tempArr[i].question
             let corrHold = tempArr[i].correct
             tempAns[j] = answer
             tempArr[i] = { question: questHold, answers: tempAns, correct: corrHold }
         }
-        else if (tempArr[i] && !tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct') && tempArr[i].hasOwnProperty('question')) {
+        else if (tempArr[i]
+            && !tempArr[i].hasOwnProperty('answers')
+            && tempArr[i].hasOwnProperty('correct')
+            && tempArr[i].hasOwnProperty('question')
+        ) {
             let questHold = tempArr[i].question
             let tempAns = []
             let corrHold = tempArr[i].correct
             tempAns[j] = answer
             tempArr[i] = { question: questHold, answers: tempAns, correct: corrHold }
         }
-        else if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct') && !tempArr[i].hasOwnProperty('question')) {
+        else if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && tempArr[i].hasOwnProperty('correct')
+            && !tempArr[i].hasOwnProperty('question')
+        ) {
             let tempAns = tempArr[i].answers
             let corrHold = tempArr[i].correct
             tempAns[j] = answer
             tempArr[i] = { answers: tempAns, correct: corrHold }
         }
-        else if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && !tempArr[i].hasOwnProperty('correct') && tempArr[i].hasOwnProperty('question')) {
+        else if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && !tempArr[i].hasOwnProperty('correct')
+            && tempArr[i].hasOwnProperty('question')
+        ) {
             let tempAns = tempArr[i].answers
             let questHold = tempArr[i].question
             tempAns[j] = answer
             tempArr[i] = { question: questHold, answers: tempAns }
         }
-        else if (tempArr[i] && !tempArr[i].hasOwnProperty('answers') && !tempArr[i].hasOwnProperty('correct') && tempArr[i].hasOwnProperty('question')) {
+        else if (tempArr[i]
+            && !tempArr[i].hasOwnProperty('answers')
+            && !tempArr[i].hasOwnProperty('correct')
+            && tempArr[i].hasOwnProperty('question')
+        ) {
             let tempAns = []
             tempAns[j] = answer
             let questHold = tempArr[i].question
             tempAns[j] = answer
             tempArr[i] = { question: questHold, answers: tempAns }
         }
-        else if (tempArr[i] && !tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('correct') && !tempArr[i].hasOwnProperty('question')) {
+        else if (tempArr[i]
+            && !tempArr[i].hasOwnProperty('answers')
+            && tempArr[i].hasOwnProperty('correct')
+            && !tempArr[i].hasOwnProperty('question')
+        ) {
             let tempAns = []
             tempAns[j] = answer
             let tempCorr = tempArr[i].correct
             tempArr[i] = { answers: tempAns, correct: tempCorr }
         }
-        else if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && !tempArr[i].hasOwnProperty('correct') && !tempArr[i].hasOwnProperty('question')) {
+        else if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && !tempArr[i].hasOwnProperty('correct')
+            && !tempArr[i].hasOwnProperty('question')
+        ) {
             let tempAns = tempArr[i].answers
             tempAns[j] = answer
             tempArr[i] = { answers: tempAns }
@@ -164,16 +205,25 @@ export default class quizCreate extends Component {
             ans = ''
 
         let tempArr = this.state.questions
-        if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && tempArr[i].hasOwnProperty('question')) {
+        if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && tempArr[i].hasOwnProperty('question')
+        ) {
             let tempAns = tempArr[i].answers
             let questHold = tempArr[i].question
             tempArr[i] = { question: questHold, answers: tempAns, correct: ans }
         }
-        else if (tempArr[i] && tempArr[i].hasOwnProperty('question') && !tempArr[i].hasOwnProperty('answers')) {
+        else if (tempArr[i]
+            && tempArr[i].hasOwnProperty('question')
+            && !tempArr[i].hasOwnProperty('answers')
+        ) {
             let questHold = tempArr[i].question
             tempArr[i] = { question: questHold, correct: ans }
         }
-        else if (tempArr[i] && tempArr[i].hasOwnProperty('answers') && !tempArr[i].hasOwnProperty('question')) {
+        else if (tempArr[i]
+            && tempArr[i].hasOwnProperty('answers')
+            && !tempArr[i].hasOwnProperty('question')
+        ) {
             let ansHold = tempArr[i].answers
             tempArr[i] = { answers: ansHold, correct: ans }
         }
@@ -276,7 +326,10 @@ export default class quizCreate extends Component {
         e.preventDefault()
         this.subtrue()
 
-        if (this.state.descLength > 300 || this.state.title === '' || this.state.category === '') {
+        if (this.state.descLength > 300
+            || this.state.title === ''
+            || this.state.category === ''
+        ) {
             this.buttonShake()
             return;
         }
@@ -288,7 +341,10 @@ export default class quizCreate extends Component {
                 this.buttonShake()
                 return;
             }
-            if (!this.state.questions[i].hasOwnProperty('question') || !this.state.questions[i].hasOwnProperty('answers') || !this.state.questions[i].hasOwnProperty('correct')) {
+            if (!this.state.questions[i].hasOwnProperty('question')
+                || !this.state.questions[i].hasOwnProperty('answers')
+                || !this.state.questions[i].hasOwnProperty('correct')
+            ) {
                 this.buttonShake()
                 return;
             }
@@ -297,7 +353,10 @@ export default class quizCreate extends Component {
                 return;
             }
             for (let j = 0; j < 4; j++) {
-                if (this.state.questions[i].answers[j] === undefined || this.state.questions[i].answers[j] === null || this.state.questions[i].answers[j] === '') {
+                if (this.state.questions[i].answers[j] === undefined
+                    || this.state.questions[i].answers[j] === null
+                    || this.state.questions[i].answers[j] === ''
+                ) {
                     this.buttonShake()
                     return;
                 }
@@ -355,14 +414,21 @@ export default class quizCreate extends Component {
         let formHead =
             <div>
                 <h3>Name your quiz:</h3>
-                <input type='text' className='question' onChange={e => this.titleChange(e.target.value)} />
+                <input type='text' className='question'
+                    onChange={e => this.titleChange(e.target.value)}
+                />
                 {titleVal && <ValidationError message={'Please enter a title'} />}
                 <h3>Describe your quiz: </h3>
-                <textarea id='description' onChange={e => this.descChange(e.target.value)} defaultValue={this.state.description} />
+                <textarea id='description'
+                    onChange={e => this.descChange(e.target.value)}
+                    defaultValue={this.state.description}
+                />
                 <br />
                 {descCount}
                 <h3>Category:</h3>
-                <select name='categories' id='categories' onChange={e => this.categoryChange(e.target.value)}>
+                <select name='categories' id='categories'
+                    onChange={e => this.categoryChange(e.target.value)}
+                >
                     <option value=''>Choose a category</option>
                     {catDrop}
                 </select>
@@ -386,10 +452,19 @@ export default class quizCreate extends Component {
                 <Link to={'/'} className='homeNavCreate yellowButton'>GO HOME</Link>
             </div>
 
-        let question = <Question count={this.state.count} questChange={this.questChange} ansChange={this.answerChange} corChange={this.correctChange} bool={this.state.subAttempt} values={this.state.questions} />
+        let question =
+            <Question count={this.state.count} questChange={this.questChange}
+                ansChange={this.answerChange} corChange={this.correctChange}
+                bool={this.state.subAttempt} values={this.state.questions}
+            />
 
         let foot =
-            <div className='foot'>made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a>
+            <div className='foot'>
+                made by
+                <a href='http://nassirjones.com' target='_blank'
+                    rel='noopener noreferrer' className='webLink'>
+                    Nassir Jones
+                </a>
             </div>
 
         if (this.state.error === true) return (
@@ -417,7 +492,11 @@ export default class quizCreate extends Component {
                             {formHead}
                             {question}
                             <div className='questionFormButtons'>
-                                <button onClick={e => this.delQuestion(e)} id='remQuest' className='redButton'>DELETE LAST QUESTION</button>
+                                <button id='remQuest' className='redButton'
+                                    onClick={e => this.delQuestion(e)}
+                                >
+                                    DELETE LAST QUESTION
+                                </button>
                             </div>
                             <br />
 
@@ -441,8 +520,14 @@ export default class quizCreate extends Component {
                             {formHead}
                             {question}
                             <div className='questionFormButtons'>
-                                <button id='addQuest' onClick={e => this.addQuestion(e)} className='yellowButtonTwo'>ANOTHER QUESTION</button>
-                                <button onClick={e => this.delQuestion(e)} id='remQuest' className='redButton'>DELETE LAST QUESTION</button>
+                                <button id='addQuest' className='yellowButtonTwo'
+                                    onClick={e => this.addQuestion(e)}>
+                                    ANOTHER QUESTION
+                                </button>
+                                <button id='remQuest' className='redButton'
+                                    onClick={e => this.delQuestion(e)}>
+                                    DELETE LAST QUESTION
+                                </button>
                             </div>
                             <br />
                             {formTail}
@@ -465,7 +550,10 @@ export default class quizCreate extends Component {
                             {formHead}
                             {question}
                             <div className='questionFormButtons'>
-                                <button id='addQuest' onClick={e => this.addQuestion(e)} className='yellowButtonTwo'>ANOTHER QUESTION</button>
+                                <button id='addQuest' className='yellowButtonTwo'
+                                    onClick={e => this.addQuestion(e)} >
+                                    ANOTHER QUESTION
+                                </button>
                             </div>
                             <br />
                             {formTail}

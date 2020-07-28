@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './Homepage.css';
+// import './Homepage.css';
 
 
-export default class Homepage extends Component {
+export default class Signup extends Component {
 
     render() {
         return (

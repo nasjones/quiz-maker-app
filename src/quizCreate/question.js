@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import OptValidation from './optionValidation'
-import QuestValidation from './questValidation'
-import CorrectValidation from './correctValidation'
+import QuestValidation from './questValidation';
+import CorrectValidation from './correctValidation';
+import Option from './option'
 import './question.css';
 
 
-export default class question extends Component {
+export default class Question extends Component {
 
     constructor(props) {
         super(props)
@@ -108,30 +108,17 @@ export default class question extends Component {
             let options = []
             for (let j = 0; j < 4; j++) {
                 options.push(
-                    <div key={'option' + (j + 1)} className='choiceWrap'>
-                        <label htmlFor={'Q' + (i + 1) + 'option' + (j + 1)} className='option'>
-                            option {(j + 1)}
-                        </label>
-                        <br />
-                        <input type='text' className='optionInput'
-                            id={'Q' + (i + 1) + 'option' + (j + 1)}
-                            defaultValue={this.retainAns(i, j)}
-                            onChange={e => this.optChangeHandle(i, j, e.target.value)}
-                        />
-                        {<OptValidation message={'Please enter an option'}
-                            opt={document.getElementById(`Q${i + 1}option${j + 1}`)}
-                            optTouch={(this.optTouch(i, j, document.getElementById(`Q${i + 1}option${j + 1}`)))} bool={this.props.bool}
-                        />}
-                        <br />
-                        <input type='radio' className='radOpt'
-                            id={'Q' + (i + 1) + 'radOpt' + (j + 1)}
-                            name={'Quest' + (i + 1) + 'rad'}
-                            onChange={e => this.radChange(i, j, document.getElementById(`Q${i + 1}option${j + 1}`).value)}
-                        />
-                        <label htmlFor={'Q' + (i + 1) + 'radOpt' + (j + 1)} className='option'>
-                            Correct answer:
-                        </label>
-                    </div>
+                    <Option key={`option${j + 1}`}
+                        optId={`Q${i + 1}option${j + 1}`}
+                        radId={`Q${i + 1}radOpt${j + 1}`}
+                        inputName={`Quest${i + 1}rad`}
+                        optNum={j}
+                        questNum={i}
+                        retainAnswer={this.retainAns(i, j)}
+                        optTouch={this.optTouch}
+                        optChangeHandle={this.optChangeHandle}
+                        radChange={this.radChange}
+                    />
                 )
             }
             out.push(

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import './Homepage.css';
+import Foot from '../foot';
 
 
 export default class Login extends Component {
@@ -15,7 +15,7 @@ export default class Login extends Component {
                 <form>
 
                 </form>
-                <div className='foot'>made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a></div>
+                <Foot />
             </div>
         )
     }

@@ -5,6 +5,7 @@ import Question from './question';
 import ValidationError from './ValidationError';
 import QuizLink from './quizLink';
 import config from '../config';
+import Foot from '../foot'
 
 export default class quizCreate extends Component {
     constructor(props) {
@@ -417,7 +418,7 @@ export default class quizCreate extends Component {
                 <input type='text' className='question'
                     onChange={e => this.titleChange(e.target.value)}
                 />
-                {titleVal && <ValidationError message={'Please enter a title'} />}
+                {titleVal && <ValidationError message={'Please enter a valid title'} />}
                 <h3>Describe your quiz: </h3>
                 <textarea id='description'
                     onChange={e => this.descChange(e.target.value)}
@@ -458,21 +459,13 @@ export default class quizCreate extends Component {
                 bool={this.state.subAttempt} values={this.state.questions}
             />
 
-        let foot =
-            <div className='foot'>
-                made by
-                <a href='http://nassirjones.com' target='_blank'
-                    rel='noopener noreferrer' className='webLink'>
-                    Nassir Jones
-                </a>
-            </div>
-
-        if (this.state.error === true) return (
-            <div>
-                <h1 className='error'>Sorry there was an error with this request. Maybe try again later or try something else.</h1>
-                <a href='/'>Return home</a>
-            </div>
-        )
+        if (this.state.error === true)
+            return (
+                <div>
+                    <h1 className='error'>Sorry there was an error with this request. Maybe try again later or try something else.</h1>
+                    <a href='/'>Return home</a>
+                </div>
+            )
 
 
         if (this.state.submitted)
@@ -504,7 +497,7 @@ export default class quizCreate extends Component {
                         </form>
 
                     </div>
-                    {foot}
+                    <Foot />
                 </div>
             )
         }
@@ -534,7 +527,7 @@ export default class quizCreate extends Component {
                         </form>
 
                     </div>
-                    {foot}
+                    <Foot />
                 </div>
             )
         }
@@ -561,7 +554,7 @@ export default class quizCreate extends Component {
 
 
                     </div>
-                    {foot}
+                    <Foot />
                 </div>
             )
         }

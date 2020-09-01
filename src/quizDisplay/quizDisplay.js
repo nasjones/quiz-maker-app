@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Quiz from './quiz';
 import './quizDisplay.css';
 import config from '../config';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Foot from '../foot';
 import he from 'he'
 
 export default class QuizDisplay extends Component {
@@ -73,7 +74,7 @@ export default class QuizDisplay extends Component {
                     <div className='buttonWrap'>
                         <Link to={'/existing-quizzes'} className='homeNavExist yellowButton'>GO BACK</Link>
                     </div>
-                    <div className='foot'>made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a></div>
+                    <Foot />
                 </div>
             )
         else if (this.state.loaded)

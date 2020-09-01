@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './createPrompt.css'
+import Foot from '../foot'
+import './createPrompt.css';
 
 
 export default class Homepage extends Component {
@@ -21,7 +22,7 @@ export default class Homepage extends Component {
                         <Link to={'/quizCreate'} className='promptNav greenButton'>READY TO CREATE</Link>
                     </div>
                 </div>
-                <div className='foot'>made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a></div>
+                <Foot />
             </div >
         )
     }

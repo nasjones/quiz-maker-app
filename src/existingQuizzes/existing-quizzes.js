@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import QuizBox from './quizBox';
 import config from '../config';
 import { Link } from 'react-router-dom';
+import Foot from '../foot';
+import he from 'he';
 import './existing-quizzes.css';
-import he from 'he'
 
 export default class existingQuiz extends Component {
     constructor(props) {
@@ -149,8 +150,7 @@ export default class existingQuiz extends Component {
                     <div id='quizStage'>
                         <h2>Sorry no quizzes matched your query.</h2>
                     </div>
-                    <div className='foot' >made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a>
-                    </div>
+                    <Foot />
                 </div>
             )
         else
@@ -166,8 +166,7 @@ export default class existingQuiz extends Component {
                     <div id='quizStage'>
                         {listed}
                     </div>
-                    <div className='foot' >made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a>
-                    </div>
+                    <Foot />
                 </div>
             )
     }

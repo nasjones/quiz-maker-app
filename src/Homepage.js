@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Foot from './foot'
 import './Homepage.css';
 
 
@@ -17,7 +18,7 @@ export default class Homepage extends Component {
                     <br />
                     <Link to={'/existing-quizzes'} className='homeNav yellowButton'>EXPLORE OUR QUIZZES</Link>
                 </div>
-                <div className='foot'>made by <a href='http://nassirjones.com' target='_blank' rel='noopener noreferrer' className='webLink'>Nassir Jones</a></div>
+                <Foot />
             </div>
         )
     }

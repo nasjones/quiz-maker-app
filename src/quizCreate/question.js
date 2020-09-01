@@ -112,6 +112,7 @@ export default class Question extends Component {
                         optId={`Q${i + 1}option${j + 1}`}
                         radId={`Q${i + 1}radOpt${j + 1}`}
                         inputName={`Quest${i + 1}rad`}
+                        bool={this.props.bool}
                         optNum={j}
                         questNum={i}
                         retainAnswer={this.retainAns(i, j)}
@@ -129,9 +130,10 @@ export default class Question extends Component {
                         defaultValue={this.retainQuests(i)}
                         onChange={e => this.questChangeHandle(i, e.target.value)}
                     />
-                    {<QuestValidation message={'Please enter a question'}
+                    {<QuestValidation message={'Please enter a valid question'}
                         quest={document.getElementById(`question${i + 1}`)}
-                        questTouch={this.questTouch(i, document.getElementById(`question${i + 1}`))} bool={this.props.bool}
+                        questTouch={this.questTouch(i, document.getElementById(`question${i + 1}`))}
+                        bool={this.props.bool}
                     />}
                     <h5>Answer choices</h5>
                     {<CorrectValidation message={'Please choose which option is correct'}

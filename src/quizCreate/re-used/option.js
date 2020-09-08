@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OptValidation from './optionValidation';
+import ItemValidation from './itemValidation';
 
 export default class Option extends Component {
     render() {
@@ -14,9 +14,9 @@ export default class Option extends Component {
                     defaultValue={this.props.retainAnswer}
                     onChange={e => this.props.optChangeHandle(this.props.questNum, this.props.optNum, e.target.value)}
                 />
-                {<OptValidation message={'Please enter a valid option'}
-                    opt={document.getElementById(this.props.optId)}
-                    optTouch={(this.props.optTouch(this.props.questNum, this.props.optNum, document.getElementById(this.props.optId)))}
+                {<ItemValidation message={'Please enter a valid option'}
+                    item={document.getElementById(this.props.optId)}
+                    itemTouch={(this.props.optTouch(this.props.questNum, this.props.optNum, document.getElementById(this.props.optId)))}
                     bool={this.props.bool}
                 />}
                 <br />

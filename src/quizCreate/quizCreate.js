@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './quizCreate.css';
 import Question from './question';
-import ValidationError from './ValidationError';
-import QuizLink from './quizLink';
+import FormHead from './re-used/formHead';
+import Tail from './re-used/formTail'
 import config from '../config';
-import Foot from '../foot'
+import Foot from '../foot';
 
 export default class quizCreate extends Component {
     constructor(props) {
@@ -14,26 +14,21 @@ export default class quizCreate extends Component {
             subAttempt: false,
             count: 1,
             title: '',
-            titleTouch: false,
             questions: [],
             description: '',
-            descLength: 0,
             private: false,
-            catTouch: false,
             category: '',
             submitted: false,
-            link: null,
             error: null
         }
     }
 
     addQuestion = (e) => {
         e.preventDefault()
-        if (this.state.count < 20)
-            this.setState({
-                count: this.state.count + 1,
-                subAttempt: false
-            })
+        this.setState({
+            count: this.state.count + 1,
+            subAttempt: false
+        })
     }
 
     delQuestion = (e) => {
@@ -43,35 +38,16 @@ export default class quizCreate extends Component {
         })
     }
 
-    titleChange = (titleUpdate) => {
-
+    titleUpdate = (title) => {
         this.setState({
-            title: titleUpdate.replace(/\s+/g, ' ').trim(),
-            titleTouch: true
+            title
         })
     }
 
-    categoryChange = (category) => {
+    categoryUpdate = (category) => {
         this.setState({
-            catTouch: true,
             category
         })
-    }
-
-    titleCheck() {
-        if ((this.state.titleTouch
-            || this.state.subAttempt)
-            && this.state.title.length === 0)
-            return true;
-        return false;
-    }
-
-    categoryCheck() {
-        if ((this.state.catTouch
-            || this.state.subAttempt)
-            && this.state.category === '')
-            return true;
-        return false;
     }
 
     questChange = (i, question) => {
@@ -237,11 +213,9 @@ export default class quizCreate extends Component {
         })
     }
 
-    descChange = (text) => {
-        let input = text.replace(/\s+/g, ' ').trim()
+    descUpdate = (text) => {
         this.setState({
-            description: input,
-            descLength: input.length
+            description: text,
         })
     }
 
@@ -287,7 +261,7 @@ export default class quizCreate extends Component {
                         this.props.history.push(`/quizLink/${quiz.unique_key}`)
                 }).catch(errorTwo => {
                     console.error({ errorTwo })
-                    this.setState({ error: true })
+                    this.props.history.push('/error')
                     i = 100
                 })
             }
@@ -321,6 +295,9 @@ export default class quizCreate extends Component {
         butt.addEventListener('animationend', (e) => {
             butt.classList.remove('shaker');
         });
+        // window.scrollTo(document.getElementsByClassName('error')[0].offsetHeight)
+        let err = document.getElementsByClassName('error')
+        console.log(err[0])
     }
 
     subHandle = (e) => {
@@ -381,182 +358,47 @@ export default class quizCreate extends Component {
         tempQuests.length = this.state.count
     }
 
-    checkChange() {
+    checker = () => {
         this.setState({
             private: !this.state.private
         })
     }
 
     render() {
-        const titleVal = this.titleCheck()
-        const catVal = this.categoryCheck()
-        let descCount
-        if (this.state.descLength <= 300)
-            descCount = <span id='maxMsg'>{this.state.descLength}/300 characters</span>
-        else
-            descCount = <span id='maxMsg' className='error'>{this.state.descLength}/300 characters</span>
-
-        let categories = ['Animal',
-            'Art',
-            'Food',
-            'Geography',
-            'History',
-            'Literature',
-            'Movie/Tv',
-            'Music',
-            'Personal',
-            'Political',
-            'Random',
-            'Science',
-            'Sports',
-            'Video-Games']
-
-        let catDrop = categories.map((cat, index) => <option key={index} value={cat}>{cat}</option>)
-        let formHead =
+        return (
             <div>
-                <h3>Name your quiz:</h3>
-                <input type='text' className='question'
-                    onChange={e => this.titleChange(e.target.value)}
-                />
-                {titleVal && <ValidationError message={'Please enter a valid title'} />}
-                <h3>Describe your quiz: </h3>
-                <textarea id='description'
-                    onChange={e => this.descChange(e.target.value)}
-                    defaultValue={this.state.description}
-                />
-                <br />
-                {descCount}
-                <h3>Category:</h3>
-                <select name='categories' id='categories'
-                    onChange={e => this.categoryChange(e.target.value)}
-                >
-                    <option value=''>Choose a category</option>
-                    {catDrop}
-                </select>
-                {catVal && <ValidationError message={'Please choose a category'} />}
-                <br />
-                <br />
-                <input type='checkbox' id='private' name='private' onChange={e => this.checkChange()} />
-                <label htmlFor='private' id='privateLabel'>Make quiz private?</label>
-            </div>
-
-        let formTail =
-            <div>
-                <br />
-                <div className='questionFormButtons'>
-                    <button type='submit' id='quizSub' className='greenButton' onClick={e => this.subHandle(e)}>SUBMIT THIS QUIZ NOW</button>
-                </div>
-            </div>
-
-        let homeButton =
-            <div className='buttonWrap'>
-                <Link to={'/'} className='homeNavCreate yellowButton'>GO HOME</Link>
-            </div>
-
-        let question =
-            <Question count={this.state.count} questChange={this.questChange}
-                ansChange={this.answerChange} corChange={this.correctChange}
-                bool={this.state.subAttempt} values={this.state.questions}
-            />
-
-        if (this.state.error === true)
-            return (
-                <div>
-                    <h1 className='error'>Sorry there was an error with this request. Maybe try again later or try something else.</h1>
-                    <a href='/'>Return home</a>
-                </div>
-            )
-
-
-        if (this.state.submitted)
-            return (
-                <QuizLink link={this.state.link} />
-            )
-
-        else if (this.state.count === 20) {
-            return (
-                <div>
-                    <div className='createWrap'>
-                        <div id='createHeader'>
-                            <h1 className='cornerTitle' id='createCorner'>QUIZ BOWL</h1>
-                            {homeButton}
+                <div className='createWrap'>
+                    <div id='createHeader'>
+                        <h1 className='cornerTitle' id='createCorner'>QUIZ BOWL</h1>
+                        <div className='buttonWrap'>
+                            <Link to={'/'} className='homeNavCreate yellowButton'>GO HOME</Link>
                         </div>
-                        <form id='quizForm'>
-                            {formHead}
-                            {question}
-                            <div className='questionFormButtons'>
-                                <button id='remQuest' className='redButton'
-                                    onClick={e => this.delQuestion(e)}
-                                >
-                                    DELETE LAST QUESTION
-                                </button>
-                            </div>
-                            <br />
-
-                            {formTail}
-                        </form>
-
                     </div>
-                    <Foot />
-                </div>
-            )
-        }
-        else if (this.state.count > 1) {
-            return (
-                <div>
-                    <div className='createWrap'>
-                        <div id='createHeader'>
-                            <h1 className='cornerTitle' id='createCorner'>QUIZ BOWL</h1>
-                            {homeButton}
-                        </div>
-                        <form id='quizForm'>
-                            {formHead}
-                            {question}
-                            <div className='questionFormButtons'>
-                                <button id='addQuest' className='yellowButtonTwo'
-                                    onClick={e => this.addQuestion(e)}>
-                                    ANOTHER QUESTION
-                                </button>
-                                <button id='remQuest' className='redButton'
-                                    onClick={e => this.delQuestion(e)}>
-                                    DELETE LAST QUESTION
-                                </button>
-                            </div>
-                            <br />
-                            {formTail}
-                        </form>
+                    <form id='quizForm'>
+                        <FormHead subAttempt={this.state.subAttempt}
+                            category={this.state.category}
+                            title={this.state.title}
+                            checker={this.checker}
+                            titleUpdate={this.titleUpdate}
+                            descUpdate={this.descUpdate}
+                            categoryUpdate={this.categoryUpdate}
+                        />
 
-                    </div>
-                    <Foot />
-                </div>
-            )
-        }
-        else {
-            return (
-                <div>
-                    <div className='createWrap'>
-                        <div id='createHeader'>
-                            <h1 className='cornerTitle' id='createCorner'>QUIZ BOWL</h1>
-                            {homeButton}
-                        </div>
-                        <form id='quizForm'>
-                            {formHead}
-                            {question}
-                            <div className='questionFormButtons'>
-                                <button id='addQuest' className='yellowButtonTwo'
-                                    onClick={e => this.addQuestion(e)} >
-                                    ANOTHER QUESTION
-                                </button>
-                            </div>
-                            <br />
-                            {formTail}
-                        </form>
+                        <Question count={this.state.count} questChange={this.questChange}
+                            ansChange={this.answerChange} corChange={this.correctChange}
+                            bool={this.state.subAttempt} values={this.state.questions}
+                        />
 
-
-                    </div>
-                    <Foot />
+                        <Tail count={this.state.count}
+                            subHandle={this.subHandle}
+                            addQuestion={this.addQuestion}
+                            delQuestion={this.delQuestion}
+                        />
+                    </form>
                 </div>
-            )
-        }
+                <Foot />
+            </div>
+        )
     }
+
 }

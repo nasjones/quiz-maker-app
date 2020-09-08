@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import QuestValidation from './questValidation';
-import CorrectValidation from './correctValidation';
-import Option from './option'
+import ItemValidation from './re-used/itemValidation';
+import CorrectValidation from './re-used/correctValidation';
+import Option from './re-used/option'
 import './question.css';
 
 
@@ -126,13 +126,13 @@ export default class Question extends Component {
                 <div key={i}>
                     <h3>Question {i + 1}</h3>
                     <input type='text' className='question'
-                        id={'question' + (i + 1)}
+                        id={`question${i + 1}`}
                         defaultValue={this.retainQuests(i)}
                         onChange={e => this.questChangeHandle(i, e.target.value)}
                     />
-                    {<QuestValidation message={'Please enter a valid question'}
-                        quest={document.getElementById(`question${i + 1}`)}
-                        questTouch={this.questTouch(i, document.getElementById(`question${i + 1}`))}
+                    {<ItemValidation message={'Please enter a valid question'}
+                        item={document.getElementById(`question${i + 1}`)}
+                        itemTouch={this.questTouch(i, document.getElementById(`question${i + 1}`))}
                         bool={this.props.bool}
                     />}
                     <h5>Answer choices</h5>

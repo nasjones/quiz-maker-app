@@ -113,7 +113,8 @@
 }
 
 #private {
-    display: none;
+    position: fixed;
+    opacity: 0%;
 }
 
 label {
@@ -142,6 +143,10 @@ label {
 
 #privateLabel {
     font-weight: bold;
+}
+
+#private::before:hover {
+    cursor: pointer;
 }
 
 @media only screen and (min-width:550px) {

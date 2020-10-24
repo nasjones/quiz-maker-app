@@ -27,9 +27,7 @@ export default class existingQuiz extends Component {
     }
 
     categoryFilter = (quiz) => {
-        if (this.state.category === 'All')
-            return true;
-        else if (quiz.category === this.state.category)
+        if (this.state.category === 'All' || quiz.category === this.state.category)
             return true;
         return false;
     }

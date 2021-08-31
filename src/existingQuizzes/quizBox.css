@@ -1,91 +1,91 @@
 .quizWrap {
-    border: 1px solid black;
-    flex-grow: 1;
-    margin: 20px;
-    color: black;
-    height: 110px;
-    overflow: auto;
-    position: relative;
+	border: 1px solid black;
+	flex-grow: 1;
+	margin: 20px;
+	color: black;
+	height: auto;
+	/* overflow: auto; */
+	position: relative;
 }
 
 .quizWrap::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 a {
-    color: black;
+	color: black;
 }
 
 #quizStage {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding: 30px;
 }
 
 .quizPage {
-    padding: 20px;
+	padding: 20px;
 }
 
 .redBox {
-    background-color: #F35C5C;
-    box-shadow: 7px 12px #FFD166;
+	background-color: #f35c5c;
+	box-shadow: 7px 12px #ffd166;
 }
 
 .yellowBox {
-    background-color: #FFD166;
-    box-shadow: 7px 12px #F35C5C;
+	background-color: #ffd166;
+	box-shadow: 7px 12px #f35c5c;
 }
 
 .infoDisplay {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    opacity: 0;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	opacity: 0;
 }
 
 .arrowLabeler {
-    width: 40px;
-    height: 30px;
+	width: 40px;
+	height: 30px;
 }
 
 #upsideDown {
-    transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 .desc {
-    word-break: break-word;
+	word-break: break-word;
 }
 
 .imgArrow {
-    width: 30px;
-    height: 20px;
-    position: absolute;
-    z-index: 1000;
-    right: 10px;
-    top: 10px;
+	width: 30px;
+	height: 20px;
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	top: 10px;
 }
 
 #displayed {
-    height: fit-content;
+	height: fit-content;
 }
 
-@media only screen and (min-width:600px) {
-    .quizWrap {
-        width: 30%;
-        padding: 20px;
-        height: 125px;
-    }
-    #quizStage {
-        flex-basis: 32%;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
+@media only screen and (min-width: 600px) {
+	.quizWrap {
+		width: 30%;
+		padding: 20px;
+		height: 125px;
+	}
+	#quizStage {
+		flex-basis: 32%;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
 }
 
-@media only screen and (min-width:900px) {
-    .quizWrap {
-        width: 20%;
-        padding: 20px;
-    }
+@media only screen and (min-width: 900px) {
+	.quizWrap {
+		width: 20%;
+		padding: 20px;
+	}
 }

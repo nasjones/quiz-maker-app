@@ -6,8 +6,8 @@ import existingQuizzes from "./existingQuizzes/existing-quizzes";
 import createPrompt from "./createPrompt/createPrompt";
 import quizDisplay from "./quizDisplay/quizDisplay";
 import quizLink from "./quizCreate/quizLink";
-import Signup from "./userEnter/signup";
-import Login from "./userEnter/login";
+// import Signup from "./userEnter/signup";
+// import Login from "./userEnter/login";
 import errorPage from "./errorPage";
 import notFoundPage from "./notFound";
 import "./App.css";
@@ -19,8 +19,8 @@ class App extends Component {
 				<main>
 					<Routes>
 						<Route exact path="/" element={<Homepage />} />
-						<Route path="/signup" element={<Signup />} />
-						<Route path="/login" element={<Login />} />
+						{/* <Route path="/signup" element={<Signup />} /> */}
+						{/* <Route path="/login" element={<Login />} /> */}
 						<Route path="/createPrompt" element={<createPrompt />} />
 						<Route path="/quizCreate" element={<quizCreate />} />
 						<Route path="/quizLink/:newId" element={<quizLink />} />

@@ -18,16 +18,18 @@ class App extends Component {
 			<div className="App">
 				<main>
 					<Routes>
-						<Route exact path="/" element={<Homepage />} />
+						<Route path="/">
+							<Route index element={<Homepage />} />
+							<Route path="createPrompt" element={<createPrompt />} />
+							<Route path="quizCreate" element={<quizCreate />} />
+							<Route path="quizLink/:newId" element={<quizLink />} />
+							<Route path="existing-quizzes" element={<existingQuizzes />} />
+							<Route path="takeQuiz/:quizId" element={<quizDisplay />} />
+							<Route path="error" element={<errorPage />} />
+							<Route path="*" element={<notFoundPage />} />
+						</Route>
 						{/* <Route path="/signup" element={<Signup />} /> */}
 						{/* <Route path="/login" element={<Login />} /> */}
-						<Route path="/createPrompt" element={<createPrompt />} />
-						<Route path="/quizCreate" element={<quizCreate />} />
-						<Route path="/quizLink/:newId" element={<quizLink />} />
-						<Route path="/existing-quizzes" element={<existingQuizzes />} />
-						<Route path="/takeQuiz/:quizId" element={<quizDisplay />} />
-						<Route path="/error" element={<errorPage />} />
-						<Route path="*" element={<notFoundPage />} />
 					</Routes>
 				</main>
 			</div>

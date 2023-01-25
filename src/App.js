@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom";
 import Homepage from "./Homepage";
-import quizCreate from "./quizCreate/quizCreate";
-import existingQuizzes from "./existingQuizzes/existing-quizzes";
-import createPrompt from "./createPrompt/createPrompt";
-import quizDisplay from "./quizDisplay/quizDisplay";
-import quizLink from "./quizCreate/quizLink";
-// import Signup from "./userEnter/signup";
-// import Login from "./userEnter/login";
-import errorPage from "./errorPage";
-import notFoundPage from "./notFound";
+import QuizCreate from "./quizCreate/quizCreate";
+import ExistingQuiz from "./existingQuizzes/existing-quizzes";
+import CreatePrompt from "./createPrompt/createPrompt";
+import QuizDisplay from "./quizDisplay/quizDisplay";
+import QuizLink from "./quizCreate/quizLink";
+import ErrorPage from "./errorPage";
+import NotFoundPage from "./notFound";
 import "./App.css";
 
 class App extends Component {
@@ -18,18 +16,14 @@ class App extends Component {
 			<div className="App">
 				<main>
 					<Routes>
-						<Route path="/">
-							<Route index element={<Homepage />} />
-							<Route path="createPrompt" element={<createPrompt />} />
-							<Route path="quizCreate" element={<quizCreate />} />
-							<Route path="quizLink/:newId" element={<quizLink />} />
-							<Route path="existing-quizzes" element={<existingQuizzes />} />
-							<Route path="takeQuiz/:quizId" element={<quizDisplay />} />
-							<Route path="error" element={<errorPage />} />
-							<Route path="*" element={<notFoundPage />} />
-						</Route>
-						{/* <Route path="/signup" element={<Signup />} /> */}
-						{/* <Route path="/login" element={<Login />} /> */}
+						<Route exact path="/" index element={<Homepage />} />
+						<Route path="createPrompt" element={<CreatePrompt />} />
+						<Route path="/quizCreate" element={<QuizCreate />} />
+						<Route path="/quizLink/:newId" element={<QuizLink />} />
+						<Route path="/existing-quizzes" element={<ExistingQuiz />} />
+						<Route path="/takeQuiz/:quizId" element={<QuizDisplay />} />
+						<Route path="/error" element={<ErrorPage />} />
+						<Route path="*" element={<NotFoundPage />} />
 					</Routes>
 				</main>
 			</div>

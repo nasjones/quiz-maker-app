@@ -7,7 +7,7 @@ import Tail from "./re-used/formTail";
 import config from "../config";
 import Foot from "../foot";
 
-export default class quizCreate extends Component {
+export default class QuizCreate extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -51,8 +51,7 @@ export default class quizCreate extends Component {
 	};
 
 	questChange = (i, question) => {
-		if (question !== undefined)
-			question = question.replace(/\s+/g, " ").trim();
+		if (question !== undefined) question = question.replace(/\s+/g, " ").trim();
 		else question = "";
 		let tempArr = this.state.questions;
 		if (
@@ -266,17 +265,12 @@ export default class quizCreate extends Component {
 						body: JSON.stringify(questObj),
 					})
 						.then((res) => {
-							if (!res.ok)
-								return res
-									.json()
-									.then((e) => Promise.reject(e));
+							if (!res.ok) return res.json().then((e) => Promise.reject(e));
 							return res.json();
 						})
 						.then((questions) => {
 							if (i === questInput.length - 1)
-								this.props.history.push(
-									`/quizLink/${quiz.unique_key}`
-								);
+								this.props.history.push(`/quizLink/${quiz.unique_key}`);
 						})
 						.catch((errorTwo) => {
 							console.error({ errorTwo });
@@ -333,8 +327,7 @@ export default class quizCreate extends Component {
 			return;
 		}
 
-		let descHold =
-			this.state.descLength > 0 ? this.state.description : "None";
+		let descHold = this.state.descLength > 0 ? this.state.description : "None";
 
 		for (let question of this.state.questions) {
 			if (this.empty(question)) {
@@ -395,10 +388,7 @@ export default class quizCreate extends Component {
 							QUIZ BOWL
 						</h1>
 						<div className="buttonWrap">
-							<Link
-								to={"/"}
-								className="homeNavCreate yellowButton"
-							>
+							<Link to={"/"} className="homeNavCreate yellowButton">
 								GO HOME
 							</Link>
 						</div>

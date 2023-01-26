@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import QuizBox from "./quizBox";
 import config from "../config";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Foot from "../foot";
 import he from "he";
 import "./existing-quizzes.css";
@@ -15,6 +15,7 @@ export default class ExistingQuiz extends Component {
 			loaded: false,
 			quiz: null,
 			selected: null,
+			route: "",
 		};
 	}
 
@@ -68,7 +69,9 @@ export default class ExistingQuiz extends Component {
 			})
 			.catch((error) => {
 				console.error({ error });
-				this.props.history.push("/error");
+				this.setState({
+					route: "/error",
+				});
 			});
 	};
 
@@ -179,6 +182,8 @@ export default class ExistingQuiz extends Component {
 					<Foot />
 				</div>
 			);
+		else if (this.state.route !== "")
+			return <Navigate to={this.state.route} replace />;
 		else
 			return (
 				<div className="quizPage">

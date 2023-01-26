@@ -1,22 +1,20 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Quiz from "./quiz";
 import "./quizDisplay.css";
 import config from "../config";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Foot from "../foot";
 import he from "he";
 
-export default class QuizDisplay extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			quiz: null,
-			loaded: false,
-			questions: [],
-		};
-	}
+export default function QuizDisplay() {
+	const [displayState, setDisplayState] = useState({
+		quiz: null,
+		loaded: false,
+		questions: [],
+	});
+	let { quizId } = useParams();
 
-	UNSAFE_componentWillMount() {
+	useEffect(() => {
 		const options = {
 			method: "GET",
 			headers: {
@@ -25,14 +23,8 @@ export default class QuizDisplay extends Component {
 			},
 		};
 		Promise.all([
-			fetch(
-				config.ENDPOINT + "/quiz/key/" + this.props.match.params.quizId,
-				options
-			),
-			fetch(
-				config.ENDPOINT + "/questions/quiz/" + this.props.match.params.quizId,
-				options
-			),
+			fetch(config.ENDPOINT + "/quiz/key/" + quizId, options),
+			fetch(config.ENDPOINT + "/questions/quiz/" + quizId, options),
 		])
 			.then(([quizRes, questRes]) => {
 				if (!quizRes.ok) return quizRes.json().then((e) => Promise.reject(e));
@@ -41,9 +33,9 @@ export default class QuizDisplay extends Component {
 			})
 			.then(([quiz, questOut]) => {
 				for (const element of questOut)
-					element.answers = this.shuffle(element.answers);
+					element.answers = shuffle(element.answers);
 
-				this.setState({
+				setDisplayState({
 					quiz,
 					questions: questOut,
 					loaded: true,
@@ -51,13 +43,13 @@ export default class QuizDisplay extends Component {
 			})
 			.catch((e) => {
 				console.error(e);
-				this.setState({
+				setDisplayState({
 					error: true,
 				});
 			});
-	}
+	}, [quizId]);
 
-	shuffle = (array) => {
+	const shuffle = (array) => {
 		let currentIndex = array.length,
 			temporaryValue,
 			randomIndex;
@@ -73,15 +65,29 @@ export default class QuizDisplay extends Component {
 		return array;
 	};
 
-	render() {
-		if (this.state.error)
-			return (
-				<div className="quizPage">
-					<h1 className="landingTitle">QUIZ BOWL</h1>
-					<h2 className="error">
-						Sorry there was a problem processing your request try again later or
-						try a different quiz.
-					</h2>
+	if (displayState.error)
+		return (
+			<div className="quizPage">
+				<h1 className="landingTitle">QUIZ BOWL</h1>
+				<h2 className="error">
+					Sorry there was a problem processing your request try again later or
+					try a different quiz.
+				</h2>
+				<div className="buttonWrap">
+					<Link to={"/existing-quizzes"} className="homeNavExist yellowButton">
+						GO BACK
+					</Link>
+				</div>
+				<Foot />
+			</div>
+		);
+	else if (displayState.loaded)
+		return (
+			<div className="quizPage">
+				<div id="existHead">
+					<h1 className="cornerTitle" id="existCorner">
+						QUIZ BOWL
+					</h1>
 					<div className="buttonWrap">
 						<Link
 							to={"/existing-quizzes"}
@@ -90,32 +96,13 @@ export default class QuizDisplay extends Component {
 							GO BACK
 						</Link>
 					</div>
-					<Foot />
 				</div>
-			);
-		else if (this.state.loaded)
-			return (
-				<div className="quizPage">
-					<div id="existHead">
-						<h1 className="cornerTitle" id="existCorner">
-							QUIZ BOWL
-						</h1>
-						<div className="buttonWrap">
-							<Link
-								to={"/existing-quizzes"}
-								className="homeNavExist yellowButton"
-							>
-								GO BACK
-							</Link>
-						</div>
-					</div>
-					<Quiz
-						title={he.decode(this.state.quiz.title)}
-						questions={this.state.questions}
-						description={he.decode(this.state.quiz.description)}
-					/>
-				</div>
-			);
-		else return <h1 className="landingTitle">Loading...</h1>;
-	}
+				<Quiz
+					title={he.decode(displayState.quiz.title)}
+					questions={displayState.questions}
+					description={he.decode(displayState.quiz.description)}
+				/>
+			</div>
+		);
+	else return <h1 className="landingTitle">Loading...</h1>;
 }
